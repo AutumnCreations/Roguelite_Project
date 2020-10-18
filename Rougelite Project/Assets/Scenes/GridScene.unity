@@ -164,6 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41d1c95c94dd64d468b6b0ff24e6c61c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _width: 16
+  _depth: 9
   _tilePrefab: {fileID: 8053390092943087463, guid: 60a80b2869322fc4fb83551fc610eeab,
     type: 3}
 --- !u!1 &1307504076

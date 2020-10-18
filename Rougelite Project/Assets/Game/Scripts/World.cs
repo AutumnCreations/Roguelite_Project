@@ -55,9 +55,3 @@ public class World : MonoBehaviour
         });
     }
 }
-
-public class WorldTile : MonoBehaviour
-{
-    public int X;
-    public int Z;
-}

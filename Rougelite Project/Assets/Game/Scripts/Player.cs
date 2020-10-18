@@ -1,10 +1,9 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int X = 0;
-    public int Z = 0;
+    public int X;
+    public int Z;
 
     public World World;
 
@@ -15,6 +14,11 @@ public class Player : MonoBehaviour
     }
 
     private void Update()
+    {
+        Movement();
+    }
+
+    private void Movement()
     {
         if (Input.GetKeyDown(KeyCode.W))
         {

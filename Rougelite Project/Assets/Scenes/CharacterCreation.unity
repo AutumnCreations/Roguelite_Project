@@ -396,26 +396,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4683650882397056444, guid: 05466c750c9786c42a4d9d8fceac8c5c,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 6227a0b03d215db4e9be59bfc51eb7e0, type: 2}
-    - target: {fileID: 4683650882573114846, guid: 05466c750c9786c42a4d9d8fceac8c5c,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 9bfe31d6939959e438ca09babc57489d, type: 2}
-    - target: {fileID: 4683650882715586411, guid: 05466c750c9786c42a4d9d8fceac8c5c,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 9bfe31d6939959e438ca09babc57489d, type: 2}
-    - target: {fileID: 4683650884021111604, guid: 05466c750c9786c42a4d9d8fceac8c5c,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 6227a0b03d215db4e9be59bfc51eb7e0, type: 2}
     - target: {fileID: 4683650884074524290, guid: 05466c750c9786c42a4d9d8fceac8c5c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -476,10 +456,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Character
       objectReference: {fileID: 0}
-    - target: {fileID: 4683650884104616846, guid: 05466c750c9786c42a4d9d8fceac8c5c,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 9bfe31d6939959e438ca09babc57489d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05466c750c9786c42a4d9d8fceac8c5c, type: 3}

@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 
-public class WorldTile : MonoBehaviour
+namespace Assets.Game.Scripts
 {
-    public int X;
-    public int Z;
+    public class WorldTile : MonoBehaviour
+    {
+        public int X;
+        public int Z;
+    }
 }

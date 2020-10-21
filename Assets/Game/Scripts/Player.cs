@@ -4,19 +4,36 @@ namespace Assets.Game.Scripts
 {
     public class Player : MonoBehaviour
     {
+        [Header("World References")]
         public int X;
         public int Z;
-
         public World World;
+
+        [Header("Player Values")]
+        [SerializeField] float stepSpeed = 1f;
+        [SerializeField] bool hasControl = true;
+
+        private Vector3 targetPosition;
 
         private void Start()
         {
             var tile = World.GetTileAt(X, Z);
             this.transform.position = tile.transform.position + new Vector3(0, 0.55f);
+            targetPosition = transform.position;
         }
 
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Space)) { hasControl = !hasControl; }
+
+            if (transform.position != targetPosition)
+            {
+                float step = stepSpeed * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+                return;
+            }
+
+            if (!hasControl) { return; }
             Movement();
         }
 
@@ -48,8 +65,7 @@ namespace Assets.Game.Scripts
                 return;
             }
 
-            var targetPosition = tileObject.transform.position + new Vector3(0, 0.55f);
-            this.transform.position = Vector3.MoveTowards(this.transform.position, targetPosition, 1);
+            targetPosition = tileObject.transform.position + new Vector3(0, 0.55f);
 
             var tile = tileObject.GetComponent<WorldTile>();
             this.X = tile.X;

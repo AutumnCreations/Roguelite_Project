@@ -4,16 +4,24 @@ namespace Assets.Game.Scripts
 {
     public class CameraController : MonoBehaviour
     {
-        [SerializeField] float rotationSpeed = 3f;
-        [SerializeField] float scrollSpeed = 6f;
-        [SerializeField] Transform target = null;
+
+        [Header("Target References")]
+        [SerializeField] public Transform playerTarget = null;
+        [SerializeField] Transform freeRoamTarget = null;
         [SerializeField] float distanceFromTarget = 2f;
+        [SerializeField] float defaultY = 45;
         [SerializeField] Vector2 distanceMinMax = new Vector2(2f, 15f);
         [SerializeField] Vector2 verticalMinMax = new Vector2(-5, 85);
-        [SerializeField] float rotationSmoothTime = .12f;
 
-        Vector3 rotationSmoothVelocity;
-        Vector3 currentRotation;
+        [Header("Camera Values")]
+        [SerializeField] float scrollSpeed = 6f;
+        [SerializeField] float rotationSpeed = 3f;
+        [SerializeField] float rotationSmoothTime = .12f;
+        [SerializeField] public bool followPlayer = true;
+
+        private Transform target = null;
+        private Vector3 rotationSmoothVelocity;
+        private Vector3 currentRotation;
 
         float mouseX, mouseY, mouseScroll;
 
@@ -21,16 +29,27 @@ namespace Assets.Game.Scripts
         {
             //Cursor.visible = false;
             //Cursor.lockState = CursorLockMode.Locked;
-            mouseY = (verticalMinMax.x + verticalMinMax.y) / 2;
+            mouseY = defaultY;
+            mouseScroll = distanceFromTarget;
+            target = playerTarget;
+            freeRoamTarget.position.Set(playerTarget.position.x, freeRoamTarget.position.y, playerTarget.position.z);
         }
 
         private void LateUpdate()
         {
-            CameraMovement();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                freeRoamTarget.position.Set(playerTarget.position.x, freeRoamTarget.position.y, playerTarget.position.z);
+                followPlayer = !followPlayer;
+                //freeRoamTarget.position = playerTarget.position;
+            }
+            CameraFollow();
         }
 
-        void CameraMovement()
+        private void CameraFollow()
         {
+            if (!followPlayer) { target = freeRoamTarget; }
+            else { target = playerTarget; }
             if (Input.GetMouseButton(2))
             {
                 mouseX += Input.GetAxis("Mouse X") * rotationSpeed;

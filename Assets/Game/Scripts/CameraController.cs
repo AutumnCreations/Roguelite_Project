@@ -39,9 +39,9 @@ namespace Assets.Game.Scripts
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                freeRoamTarget.position.Set(playerTarget.position.x, freeRoamTarget.position.y, playerTarget.position.z);
+                //freeRoamTarget.position.Set(playerTarget.position.x, freeRoamTarget.position.y, playerTarget.position.z);
                 followPlayer = !followPlayer;
-                //freeRoamTarget.position = playerTarget.position;
+                freeRoamTarget.position = new Vector3(playerTarget.position.x, freeRoamTarget.position.y, playerTarget.position.z);
             }
             CameraFollow();
         }

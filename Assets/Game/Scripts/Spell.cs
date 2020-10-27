@@ -1,18 +1,40 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Text;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Spell", menuName = "Spell")]
-public class Spell : ScriptableObject
+[CreateAssetMenu(fileName = "New Spell", menuName = "Items/Spell")]
+public class Spell : Item
 {
-    [SerializeField] string spellName;
-    [SerializeField] int damage;
-    [SerializeField] int targets;
-    [SerializeField] int actionPointCost;
-    [SerializeField] int cooldown;
-    [SerializeField] string selfEffect;
-    [SerializeField] string falvorText;
-    [SerializeField] string notes;
+    [SerializeField] private SpellType spellType;
+    [SerializeField] private string spellText = "Does something";
 
-    [SerializeField] Sprite thumbnail;
+    //[SerializeField] private int targets;
+    //[SerializeField] private int actionPointCost;
+    //[SerializeField] private string selfEffect;
+    //[SerializeField] private string notes;
+    //[SerializeField] private Sprite thumbnail;
+
+    public SpellType SpellType { get { return spellType; } }
+
+    public override string ColoredName
+    {
+        get
+        {
+            string hexColour = ColorUtility.ToHtmlStringRGB(spellType.TextColour);
+            return $"<color=#{hexColour}>{Name}</color>";
+        }
+    }
+
+
+
+    public override string GetTooltipInfoText()
+    {
+        StringBuilder builder = new StringBuilder();
+
+        builder.Append(SpellType.Name).AppendLine();
+        builder.Append(spellText).AppendLine();
+        builder.Append("Deals ").Append(Damage).Append(" Damage").AppendLine();
+        builder.Append(FlavorText);
+
+        return builder.ToString();
+    }
 }

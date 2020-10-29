@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76f68e86e7bfd5446b1a0770383e8fcd, type: 3}
   m_Name: Mean Word
   m_EditorClassIdentifier: 
-  name: Mean Word
-  flavorText: Even babies know it
-  damage: 1
-  cooldown: 1
   thumbnail: {fileID: 3499144181262065939, guid: 6aab2903acc677f43874cfae859f923a,
     type: 3}
+  description: Shout a rude comment at target enemy
+  flavorText: Even babies know it
   spellType: {fileID: 11400000, guid: 0247230c445bd2d4ba06aa3cd6889848, type: 2}
-  spellText: Targets Enemy
+  actionPointCost: 1
+  damage: 1
+  cooldown: 0

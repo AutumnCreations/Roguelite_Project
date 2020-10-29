@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76f68e86e7bfd5446b1a0770383e8fcd, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
-  name: Fireball
-  flavorText: I never carry matches
-  damage: 1
-  cooldown: 2
   thumbnail: {fileID: -5291696226865347966, guid: 6aab2903acc677f43874cfae859f923a,
     type: 3}
+  description: Casts a fireball at targeted tile and sets it on fire
+  flavorText: I never carry matches
   spellType: {fileID: 11400000, guid: 78f3adff1313d1f4885aa161fb6af9e6, type: 2}
-  spellText: Targets and sets fire to Tile
+  actionPointCost: 2
+  damage: 1
+  cooldown: 2

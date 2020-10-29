@@ -1,70 +1,84 @@
-﻿using System.Collections;
+﻿using Roguelite.Core;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TooltipPopup : MonoBehaviour
+namespace Roguelite.UI
 {
-    [SerializeField] private GameObject popupCanvasObject;
-    [SerializeField] private RectTransform popupObject;
-    [SerializeField] private TextMeshProUGUI infoText;
-    [SerializeField] private Vector3 offset;
-    [SerializeField] private float padding;
-
-    private Canvas popupCanvas;
-
-    private void Awake()
+    public class TooltipPopup : MonoBehaviour
     {
-        popupCanvas = popupCanvasObject.GetComponent<Canvas>();
-        HideInfo();
-    }
+        [SerializeField] private GameObject popupCanvasObject;
+        [SerializeField] private RectTransform popupObject;
+        [SerializeField] private TextMeshProUGUI infoText;
+        [SerializeField] private Vector3 offset;
+        [SerializeField] private float padding;
 
-    private void Update()
-    {
-        FollowCursor();
-    }
+        private Canvas popupCanvas;
 
-    private void FollowCursor()
-    {
-        if (!popupCanvasObject.activeSelf) { return; }
-
-        Vector3 newPos = Input.mousePosition + offset;
-        newPos.z = 0f;
-        float rightEdgeToScreenEdgeDistance = Screen.width - (newPos.x + popupObject.rect.width * popupCanvas.scaleFactor / 2) - padding;
-        if (rightEdgeToScreenEdgeDistance < 0)
+        private void Awake()
         {
-            newPos.x += rightEdgeToScreenEdgeDistance;
+            popupCanvas = popupCanvasObject.GetComponent<Canvas>();
+            HideInfo();
         }
-        float leftEdgeToScreenEdgeDistance = 0 - (newPos.x - popupObject.rect.width * popupCanvas.scaleFactor / 2) + padding;
-        if (leftEdgeToScreenEdgeDistance > 0)
+
+        private void Update()
         {
-            newPos.x += leftEdgeToScreenEdgeDistance;
+            FollowCursor();
         }
-        float topEdgeToScreenEdgeDistance = Screen.height - (newPos.y + popupObject.rect.height * popupCanvas.scaleFactor) - padding;
-        if (topEdgeToScreenEdgeDistance < 0)
+
+        private void FollowCursor()
         {
-            newPos.y += topEdgeToScreenEdgeDistance;
+            if (!popupCanvasObject.activeSelf) { return; }
+
+            Vector3 newPos = Input.mousePosition + offset;
+            newPos.z = 0f;
+            float rightEdgeToScreenEdgeDistance = Screen.width - (newPos.x + popupObject.rect.width * popupCanvas.scaleFactor / 2) - padding;
+            if (rightEdgeToScreenEdgeDistance < 0)
+            {
+                newPos.x += rightEdgeToScreenEdgeDistance;
+            }
+            float leftEdgeToScreenEdgeDistance = 0 - (newPos.x - popupObject.rect.width * popupCanvas.scaleFactor / 2) + padding;
+            if (leftEdgeToScreenEdgeDistance > 0)
+            {
+                newPos.x += leftEdgeToScreenEdgeDistance;
+            }
+            float topEdgeToScreenEdgeDistance = Screen.height - (newPos.y + popupObject.rect.height * popupCanvas.scaleFactor) - padding;
+            if (topEdgeToScreenEdgeDistance < 0)
+            {
+                newPos.y += topEdgeToScreenEdgeDistance;
+            }
+            popupObject.transform.position = newPos;
         }
-        popupObject.transform.position = newPos;
-    }
 
-    public void DisplayInfo(Item item)
-    {
-        StringBuilder builder = new StringBuilder();
+        public void DisplayItemInfo(Item item)
+        {
+            StringBuilder builder = new StringBuilder();
 
-        builder.Append("<size=35>").Append(item.ColoredName).Append("</size>").AppendLine();
-        builder.Append(item.GetTooltipInfoText());
+            builder.Append("<size=35>").Append(item.ColoredName).Append("</size>").AppendLine();
+            builder.Append(item.GetTooltipInfoText());
 
-        infoText.text = builder.ToString();
+            infoText.text = builder.ToString();
 
-        popupCanvasObject.SetActive(true);
-        LayoutRebuilder.ForceRebuildLayoutImmediate(popupObject);
-    }
+            popupCanvasObject.SetActive(true);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(popupObject);
+        }
 
-    public void HideInfo()
-    {
-        popupCanvasObject.SetActive(false);
+        //Change this to Enemy information, such as enemy name, type, etc., after Proof of Concept
+        public void DisplayCharacterInfo(Player player)
+        {
+            StringBuilder builder = new StringBuilder();
+
+            builder.Append("<size=25>").Append(player.name).Append("</size>").AppendLine();
+            builder.Append("<size=25>").Append(player.Health).Append("</size>").AppendLine();
+
+        }
+
+        public void HideInfo()
+        {
+            popupCanvasObject.SetActive(false);
+        }
     }
 }

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76f68e86e7bfd5446b1a0770383e8fcd, type: 3}
   m_Name: Decay Rune
   m_EditorClassIdentifier: 
-  name: Decay Rune
-  flavorText: Keep away from me
-  damage: 0
-  cooldown: 2
   thumbnail: {fileID: -799456379296477578, guid: 6aab2903acc677f43874cfae859f923a,
     type: 3}
+  description: Sets Plague for 1 turn on target enemy
+  flavorText: Keep away from me
   spellType: {fileID: 11400000, guid: 2cdb27a9d39481043b86960b4036ea94, type: 2}
-  spellText: Sets Plague for 1 turn on Enemy
+  actionPointCost: 2
+  damage: 0
+  cooldown: 2

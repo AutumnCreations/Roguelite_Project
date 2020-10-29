@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Game.Scripts
+namespace Roguelite.Core
 {
     public class Player : MonoBehaviour
     {
@@ -9,9 +9,14 @@ namespace Assets.Game.Scripts
         public int Z;
         public World World;
 
-        [Header("Player Values")]
-        [SerializeField] float stepSpeed = 1f;
-        [SerializeField] bool hasControl = true;
+        [Header("Player Movement")]
+        [SerializeField] private float stepSpeed = 1f;
+        [SerializeField] private bool hasControl = true;
+
+        [Header("Player Stats")]
+        [SerializeField] private float health = 10f;
+
+        public float Health { get { return health; } }
 
         private Vector3 targetPosition;
 
@@ -26,17 +31,21 @@ namespace Assets.Game.Scripts
         {
             if (Input.GetKeyDown(KeyCode.Space)) { hasControl = !hasControl; }
 
+            UpdateMovement();
+            if (!hasControl) { return; }
+            Movement();
+        }
+
+        //Movement
+        private void UpdateMovement()
+        {
             if (transform.position != targetPosition)
             {
                 float step = stepSpeed * Time.deltaTime;
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
                 return;
             }
-
-            if (!hasControl) { return; }
-            Movement();
         }
-
         private void Movement()
         {
             if (Input.GetKeyDown(KeyCode.W))
@@ -56,8 +65,7 @@ namespace Assets.Game.Scripts
                 Move(1, 0);
             }
         }
-
-        public void Move(int horizontal, int vertical)
+        private void Move(int horizontal, int vertical)
         {
             var tileObject = World.GetTileAt(X + horizontal, Z + vertical);
             if (tileObject is null)
@@ -70,6 +78,12 @@ namespace Assets.Game.Scripts
             var tile = tileObject.GetComponent<WorldTile>();
             this.X = tile.X;
             this.Z = tile.Z;
+        }
+
+        //World Interaction
+        private void RaycastCheck()
+        {
+            // Check to see if raycast hits another Player (will change to enemy) and get reference, then call DisplayCharacterInfo()
         }
     }
 }

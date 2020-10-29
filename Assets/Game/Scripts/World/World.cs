@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Game.Scripts
+namespace Roguelite.Core
 {
     public class World : MonoBehaviour
     {

@@ -4,26 +4,29 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SpellButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+namespace Roguelite.UI
 {
-    [SerializeField] private TooltipPopup tooltipPopup;
-    [SerializeField] private Spell spell;
-
-    private Image image;
-
-    private void Awake()
+    public class SpellButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        image = GetComponent<Image>();
-        image.sprite = spell.Thumbnail;
-    }
+        [SerializeField] private TooltipPopup tooltipPopup;
+        [SerializeField] private Spell spell;
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        tooltipPopup.DisplayInfo(spell);
-    }
+        private Image image;
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        tooltipPopup.HideInfo();
+        private void Awake()
+        {
+            image = GetComponent<Image>();
+            image.sprite = spell.Thumbnail;
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            tooltipPopup.DisplayItemInfo(spell);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            tooltipPopup.HideInfo();
+        }
     }
 }

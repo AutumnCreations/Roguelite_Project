@@ -1,19 +1,30 @@
 ﻿using UnityEngine;
+using Roguelite.UI;
 
-namespace Assets.Game.Scripts
+namespace Roguelite.Combat
 {
     public class Enemy : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        [Header("Enemy Stats")]
+        [SerializeField] private float health = 10f;
+
+        public float Health { get { return health; } }
+
+        private TooltipPopup tooltip;
+
+        private void Start()
         {
-        
+            tooltip = FindObjectOfType<TooltipPopup>();
         }
 
-        // Update is called once per frame
-        void Update()
+        private void OnMouseOver()
         {
-        
+            tooltip.DisplayCharacterInfo(this);
+        }
+
+        private void OnMouseExit()
+        {
+            tooltip.HideInfo();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Roguelite.Core;
+﻿using Roguelite.Combat;
+using Roguelite.Core;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -59,7 +60,6 @@ namespace Roguelite.UI
 
             builder.Append("<size=35>").Append(item.ColoredName).Append("</size>").AppendLine();
             builder.Append(item.GetTooltipInfoText());
-
             infoText.text = builder.ToString();
 
             popupCanvasObject.SetActive(true);
@@ -67,12 +67,16 @@ namespace Roguelite.UI
         }
 
         //Change this to Enemy information, such as enemy name, type, etc., after Proof of Concept
-        public void DisplayCharacterInfo(Player player)
+        public void DisplayCharacterInfo(Enemy enemy)
         {
             StringBuilder builder = new StringBuilder();
 
-            builder.Append("<size=25>").Append(player.name).Append("</size>").AppendLine();
-            builder.Append("<size=25>").Append(player.Health).Append("</size>").AppendLine();
+            builder.Append("<size=35><color=#8f0d2b>").Append(enemy.name).Append("</color></size>").AppendLine();
+            builder.Append("<color=#8f0d2b>").Append(enemy.Health).Append("</color> Health").AppendLine();
+            infoText.text = builder.ToString();
+
+            popupCanvasObject.SetActive(true);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(popupObject);
 
         }
 

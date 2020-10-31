@@ -1,19 +1,23 @@
-﻿using Roguelite.UI;
+﻿using System;
+using Roguelite.UI;
 using UnityEngine;
 
 namespace Roguelite.Core
 {
     public class Player : MonoBehaviour
     {
+        #region Variables
         [Header("World References")]
         public int X;
         public int Z;
         public World World;
+        public WorldTile targetTile = null;
 
         [Header("Player Movement")]
         [Tooltip("The speed at which the character model will move from their current position to the target position")]
         [SerializeField] private float stepSpeed = 1f;
         [SerializeField] private bool hasControl = true;
+
         [Tooltip("Temporary value to test enemy characters without AI")]
         [SerializeField] private bool isEnemy = false;
 
@@ -23,43 +27,65 @@ namespace Roguelite.Core
         public float Health { get { return health; } }
 
         private Camera cam;
-        //private TooltipPopup tooltip;
         private Vector3 targetPosition;
-        private RaycastHit hit;
+        private Spell activeSpell;
+        //private RaycastHit hit;
+
+        enum State
+        {
+            Idle,
+            Moving,
+            Casting,
+        }
+        State currentState;
+
+        #endregion
 
         private void Start()
         {
             var tile = World.GetTileAt(X, Z);
             transform.position = tile.transform.position + new Vector3(0, 0.55f);
             targetPosition = transform.position;
-
             cam = FindObjectOfType<Camera>();
-            //tooltip = FindObjectOfType<TooltipPopup>();
+
+            currentState = State.Idle;
         }
 
         private void Update()
         {
             if (isEnemy) return;
-
-            //RaycastCheck();
             if (Input.GetKeyDown(KeyCode.Space)) { hasControl = !hasControl; }
-
-            UpdateMovement();
             if (!hasControl) { return; }
-            Movement();
+            print(currentState);
+
+            switch (currentState)
+            {
+                case State.Idle:
+                    MovementInput();
+                    break;
+                case State.Moving:
+                    UpdateMovement();
+                    break;
+                case State.Casting:
+                    HandleCasting();
+                    break;
+            }
+
         }
 
-        //Movement
+        #region Movement
         private void UpdateMovement()
         {
             if (transform.position != targetPosition)
             {
                 float step = stepSpeed * Time.deltaTime;
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+                currentState = State.Moving;
                 return;
             }
+            currentState = State.Idle;
         }
-        private void Movement()
+        private void MovementInput()
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
@@ -91,9 +117,38 @@ namespace Roguelite.Core
             var tile = tileObject.GetComponent<WorldTile>();
             this.X = tile.X;
             this.Z = tile.Z;
+
+            currentState = State.Moving;
+        }
+        #endregion
+
+        #region Combat
+        private void HandleCasting()
+        {
+            //Show spell range, target, and VFX
+
+            //Need to add check for valid target (Enemy/Tile)
+            if (Input.GetMouseButtonDown(0) && targetTile)
+            {
+                CastSpell();
+            }
         }
 
-        //World Interaction
+        private void CastSpell()
+        {
+            Debug.Log("Casting " + activeSpell.name);
+            Instantiate(activeSpell.spellEffect, targetTile.transform.position + Vector3.up, targetTile.transform.rotation);
+            currentState = State.Idle;
+        }
+
+        public void SetActiveSpell(Spell spell)
+        {
+            activeSpell = spell;
+            currentState = State.Casting;
+        }
+        #endregion
+
+        #region World Interaction
         //    private void RaycastCheck()
         //    {
         //        // Check to see if raycast hits another Player (will change to enemy after Proof of Concept) using tag and get reference, then call DisplayCharacterInfo()
@@ -113,5 +168,6 @@ namespace Roguelite.Core
         //        }
         //            //else if (lastHit.transform && lastHit.transform.CompareTag("Enemy")) { tooltip.HideInfo(); }
         //    }
+        #endregion
     }
 }

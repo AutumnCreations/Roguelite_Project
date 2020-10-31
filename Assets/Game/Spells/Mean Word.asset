@@ -20,3 +20,4 @@ MonoBehaviour:
   actionPointCost: 1
   damage: 1
   cooldown: 0
+  spellEffect: {fileID: 100004, guid: 757df604761b8ef42831192c70ee1099, type: 3}

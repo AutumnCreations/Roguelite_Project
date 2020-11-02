@@ -9,20 +9,20 @@ namespace Roguelite.Core
 
         Player player;
 
-        private void Start()
-        {
-            //Using tag reference to find player to avoid conflicts with enemy test dummies
-            player = GameObject.FindWithTag("Player").GetComponent<Player>();
-        }
+        //private void Start()
+        //{
+        //    //Using tag reference to find player to avoid conflicts with enemy test dummies
+        //    player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        //}
 
-        private void OnMouseEnter()
-        {
-            player.targetTile = this;
-        }
+        //private void OnMouseEnter()
+        //{
+        //    player.targetTile = this;
+        //}
 
-        private void OnMouseExit()
-        {
-            player.targetTile = null;
-        }
+        //private void OnMouseExit()
+        //{
+        //    player.targetTile = null;
+        //}
     }
 }

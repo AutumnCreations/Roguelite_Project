@@ -29,7 +29,6 @@ namespace Roguelite.Core
         private Camera cam;
         private Vector3 targetPosition;
         private Spell activeSpell;
-        //private RaycastHit hit;
 
         enum State
         {
@@ -54,9 +53,13 @@ namespace Roguelite.Core
         private void Update()
         {
             if (isEnemy) return;
+
+            TileCheck();
+
             if (Input.GetKeyDown(KeyCode.Space)) { hasControl = !hasControl; }
             if (!hasControl) { return; }
-            print(currentState);
+
+            //print(currentState);
 
             switch (currentState)
             {
@@ -125,7 +128,7 @@ namespace Roguelite.Core
         #region Combat
         private void HandleCasting()
         {
-            //Show spell range, target, and VFX
+            //To Do: Show spell range, target, and VFX
 
             //Need to add check for valid target (Enemy/Tile)
             if (Input.GetMouseButtonDown(0) && targetTile)
@@ -149,25 +152,27 @@ namespace Roguelite.Core
         #endregion
 
         #region World Interaction
-        //    private void RaycastCheck()
-        //    {
-        //        // Check to see if raycast hits another Player (will change to enemy after Proof of Concept) using tag and get reference, then call DisplayCharacterInfo()
+        private void TileCheck()
+        {
+            // Check to see if over a tile and set the target tile
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit[] hits = Physics.RaycastAll(ray);
 
+            foreach (RaycastHit hit in hits)
+            {
+                if (hit.transform.CompareTag("Tile"))
+                {
+                    targetTile = hit.transform.GetComponent<WorldTile>();
+                    print(targetTile.name);
+                    return;
+                }
+            }
 
-        //        //RaycastHit lastHit = hit;
-        //        int layerMask = 1 << 8;
-        //        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        //        if (Physics.Raycast(ray, out hit, layerMask))
-        //        {
-        //            Transform target = hit.transform;
-        //            //if (target.CompareTag("Enemy"))
-        //            //{
-        //                //if (!lastHit.transform || lastHit.transform.CompareTag("Enemy")) { return; }
-        //                tooltip.DisplayCharacterInfo(target.GetComponent<Player>());
-        //            //}
-        //        }
-        //            //else if (lastHit.transform && lastHit.transform.CompareTag("Enemy")) { tooltip.HideInfo(); }
-        //    }
+            if (hits.Length < 1)
+            {
+                targetTile = null;
+            }
+        }
         #endregion
     }
 }

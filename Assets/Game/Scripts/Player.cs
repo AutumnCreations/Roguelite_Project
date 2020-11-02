@@ -11,7 +11,6 @@ namespace Roguelite.Core
         public int X;
         public int Z;
         public World World;
-        public WorldTile targetTile = null;
 
         [Header("Player Movement")]
         [Tooltip("The speed at which the character model will move from their current position to the target position")]
@@ -26,9 +25,11 @@ namespace Roguelite.Core
 
         public float Health { get { return health; } }
 
-        private Camera cam;
+        private WorldTile targetTile = null;
+        private WorldTile previousTargetTile = null;
+        private Camera cam = null;
         private Vector3 targetPosition;
-        private Spell activeSpell;
+        private Spell activeSpell = null;
 
         enum State
         {
@@ -163,14 +164,25 @@ namespace Roguelite.Core
                 if (hit.transform.CompareTag("Tile"))
                 {
                     targetTile = hit.transform.GetComponent<WorldTile>();
-                    print(targetTile.name);
+                    targetTile.SetHighlightedMaterial();
+
+                    if (previousTargetTile && previousTargetTile != targetTile)
+                    {
+                        previousTargetTile.SetDefaultMaterial();
+                    }
+                    previousTargetTile = targetTile;
                     return;
                 }
             }
 
             if (hits.Length < 1)
             {
+                if (previousTargetTile)
+                {
+                    previousTargetTile.SetDefaultMaterial();
+                }
                 targetTile = null;
+                previousTargetTile = null;
             }
         }
         #endregion

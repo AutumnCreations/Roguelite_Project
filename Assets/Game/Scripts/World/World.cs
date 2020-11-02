@@ -33,7 +33,8 @@ namespace Roguelite.Core
                     tileObject.name = $"{x},{z}";
                     _tiles.Add(tileObject);
 
-                    var tile = tileObject.AddComponent<WorldTile>();
+                    //var tile = tileObject.AddComponent<WorldTile>();
+                    WorldTile tile = tileObject.GetComponent<WorldTile>();
                     tile.X = x;
                     tile.Z = z;
                 }

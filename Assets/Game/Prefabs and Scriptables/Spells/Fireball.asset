@@ -19,6 +19,6 @@ MonoBehaviour:
   spellType: {fileID: 11400000, guid: 78f3adff1313d1f4885aa161fb6af9e6, type: 2}
   actionPointCost: 2
   damage: 1
+  range: 5
   cooldown: 2
-  spellEffect: {fileID: 1727626132299242, guid: b0bc1b6b391734647b9bb142bafc0819,
-    type: 3}
+  spellEffect: {fileID: 100004, guid: fc4921408e361f449aa8209b5b358ff8, type: 3}

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Roguelite.UI;
 using UnityEngine;
 
@@ -43,7 +44,7 @@ namespace Roguelite.Core
 
         private void Start()
         {
-            var tile = World.GetTileAt(X, Z);
+            WorldTile tile = World.GetTileAt(X, Z);
             transform.position = tile.transform.position + new Vector3(0, 0.55f);
             targetPosition = transform.position;
             cam = FindObjectOfType<Camera>();
@@ -110,7 +111,7 @@ namespace Roguelite.Core
         }
         private void Move(int horizontal, int vertical)
         {
-            var tileObject = World.GetTileAt(X + horizontal, Z + vertical);
+            WorldTile tileObject = World.GetTileAt(X + horizontal, Z + vertical);
             if (tileObject is null)
             {
                 return;
@@ -118,9 +119,8 @@ namespace Roguelite.Core
 
             targetPosition = tileObject.transform.position + new Vector3(0, 0.55f);
 
-            var tile = tileObject.GetComponent<WorldTile>();
-            this.X = tile.X;
-            this.Z = tile.Z;
+            X = tileObject.X;
+            Z = tileObject.Z;
 
             currentState = State.Moving;
         }
@@ -129,8 +129,6 @@ namespace Roguelite.Core
         #region Combat
         private void HandleCasting()
         {
-            //To Do: Show spell range, target, and VFX
-
             //Need to add check for valid target (Enemy/Tile)
             if (Input.GetMouseButtonDown(0) && targetTile)
             {
@@ -149,6 +147,17 @@ namespace Roguelite.Core
         {
             activeSpell = spell;
             currentState = State.Casting;
+            
+            //To Do: Show spell range, target, and VFX
+            List<WorldTile> tilesInRange = World.GetSurroundingTiles(World.GetTileAt(X, Z), activeSpell.Range);
+
+            foreach (WorldTile tile in tilesInRange)
+            {
+                if (tile)
+                {
+                tile.SetHighlightedMaterial();
+                }
+            }
         }
         #endregion
 

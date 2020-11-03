@@ -7,11 +7,14 @@ public class Spell : Item
     [SerializeField] private SpellType spellType;
     [SerializeField] private int actionPointCost;
     [SerializeField] private int damage;
+    [SerializeField] private int range;
     [SerializeField] private int cooldown;
 
     [SerializeField] public GameObject spellEffect;
 
+    public int ActionPointCost { get { return actionPointCost; } }
     public int Damage { get { return damage; } }
+    public int Range { get { return range; } }
     public int Cooldown { get { return cooldown; } }
     public SpellType SpellType { get { return spellType; } }
 
@@ -26,8 +29,9 @@ public class Spell : Item
 
         //builder.Append(SpellType.Name).AppendLine();
         builder.Append(Description).AppendLine();
-        builder.Append("Costs ").Append(actionPointCost).Append(" Action Point(s)").AppendLine();
-        builder.Append("Deals ").Append(Damage).Append(" Damage").AppendLine();
+        builder.Append("AP: ").Append(ActionPointCost).AppendLine();
+        builder.Append("Damage: ").Append(Damage).AppendLine();
+        builder.Append("Range: ").Append(Damage).AppendLine();
         builder.Append("Cooldown: ").Append(Cooldown).Append(" Turn(s)").AppendLine();
         builder.Append("<i>" + FlavorText + "</i>");
 

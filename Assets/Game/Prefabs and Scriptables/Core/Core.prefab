@@ -335,6 +335,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1507838339178900685, guid: 94377adf59b94b24ba8b784d96567047,
+        type: 3}
+      propertyPath: _tilePrefab
+      value: 
+      objectReference: {fileID: 6797105497229117749, guid: 60a80b2869322fc4fb83551fc610eeab,
+        type: 3}
     - target: {fileID: 1507838339178900687, guid: 94377adf59b94b24ba8b784d96567047,
         type: 3}
       propertyPath: m_Name
@@ -549,19 +555,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 672783428, guid: 8db3d59bb3f60d042a82eaf63389fe01, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 672783428, guid: 8db3d59bb3f60d042a82eaf63389fe01, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 672783428, guid: 8db3d59bb3f60d042a82eaf63389fe01, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 127.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 672783428, guid: 8db3d59bb3f60d042a82eaf63389fe01, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -42.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 672783429, guid: 8db3d59bb3f60d042a82eaf63389fe01, type: 3}
       propertyPath: tooltipPopup
@@ -617,19 +623,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 842169383, guid: 8db3d59bb3f60d042a82eaf63389fe01, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 842169383, guid: 8db3d59bb3f60d042a82eaf63389fe01, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 842169383, guid: 8db3d59bb3f60d042a82eaf63389fe01, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 42.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 842169383, guid: 8db3d59bb3f60d042a82eaf63389fe01, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -42.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 842169384, guid: 8db3d59bb3f60d042a82eaf63389fe01, type: 3}
       propertyPath: tooltipPopup
@@ -685,19 +691,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 995397969, guid: 8db3d59bb3f60d042a82eaf63389fe01, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 212.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 995397969, guid: 8db3d59bb3f60d042a82eaf63389fe01, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 995397969, guid: 8db3d59bb3f60d042a82eaf63389fe01, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 995397969, guid: 8db3d59bb3f60d042a82eaf63389fe01, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -42.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 995397970, guid: 8db3d59bb3f60d042a82eaf63389fe01, type: 3}
       propertyPath: tooltipPopup
@@ -864,12 +870,12 @@ PrefabInstance:
     - target: {fileID: 8328458049572173156, guid: 8db3d59bb3f60d042a82eaf63389fe01,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 255
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8328458049572173156, guid: 8db3d59bb3f60d042a82eaf63389fe01,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 85
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 672783433, guid: 8db3d59bb3f60d042a82eaf63389fe01, type: 3}

@@ -11,9 +11,9 @@ namespace Roguelite.Core
         [SerializeField] private int _depth = 9;
 
         [Header("Prefabs")]
-        [SerializeField] private GameObject _tilePrefab;
+        [SerializeField] private WorldTile _tilePrefab;
 
-        private readonly List<GameObject> _tiles = new List<GameObject>();
+        private readonly List<WorldTile> _tiles = new List<WorldTile>();
 
         private void Awake()
         {
@@ -29,7 +29,7 @@ namespace Roguelite.Core
                 for (var x = 0; x < _width; x++)
                 {
                     var position = new Vector3(x - _width / 2f - 0.5f, 0, z - _depth / 2f - 0.5f);
-                    var tileObject = Instantiate(_tilePrefab, position, Quaternion.identity, this.transform);
+                    WorldTile tileObject = Instantiate(_tilePrefab, position, Quaternion.identity, this.transform);
                     tileObject.name = $"{x},{z}";
                     _tiles.Add(tileObject);
 
@@ -43,19 +43,51 @@ namespace Roguelite.Core
 
         private void DestroyWorld()
         {
-            foreach (var tile in _tiles)
+            foreach (WorldTile tile in _tiles)
             {
                 Destroy(tile);
             }
         }
 
-        public GameObject GetTileAt(int x, int z)
+        public WorldTile GetTileAt(int x, int z)
         {
             return _tiles.SingleOrDefault(t =>
             {
-                var tile = t.GetComponent<WorldTile>();
+                WorldTile tile = t.GetComponent<WorldTile>();
                 return tile.X == x && tile.Z == z;
             });
+
+            //foreach (WorldTile tile in _tiles)
+            //{
+            //    if (tile.X == x && tile.Z == z)
+            //    {
+            //        return tile;
+            //    }
+            //}
+
+            //return null;
+
+        }
+
+
+        //First attempt at displaying Spell range
+        public List<WorldTile> GetSurroundingTiles(WorldTile targetTile, int range)
+        {
+            List<WorldTile> tiles = new List<WorldTile>();
+
+            for (int i = 0; i <= range; i++)
+            {
+                tiles.Add(GetTileAt(targetTile.X + i, targetTile.Z));
+                tiles.Add(GetTileAt(targetTile.X, targetTile.Z + i));
+                tiles.Add(GetTileAt(targetTile.X + i, targetTile.Z + i));
+                tiles.Add(GetTileAt(targetTile.X + i, targetTile.Z - i));
+                tiles.Add(GetTileAt(targetTile.X - i, targetTile.Z + i));
+                tiles.Add(GetTileAt(targetTile.X - i, targetTile.Z));
+                tiles.Add(GetTileAt(targetTile.X, targetTile.Z - i));
+                tiles.Add(GetTileAt(targetTile.X - i, targetTile.Z - i));
+
+            }
+            return tiles;
         }
     }
 }

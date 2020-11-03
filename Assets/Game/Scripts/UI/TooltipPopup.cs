@@ -58,7 +58,7 @@ namespace Roguelite.UI
         {
             StringBuilder builder = new StringBuilder();
 
-            builder.Append("<size=35>").Append(item.ColoredName).Append("</size>").AppendLine();
+            builder.Append(item.ColoredName).AppendLine();
             builder.Append(item.GetTooltipInfoText());
             infoText.text = builder.ToString();
 

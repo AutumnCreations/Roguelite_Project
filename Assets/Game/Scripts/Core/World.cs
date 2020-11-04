@@ -71,23 +71,24 @@ namespace Roguelite.Core
 
 
         //First attempt at displaying Spell range
-        public List<WorldTile> GetSurroundingTiles(WorldTile targetTile, int range)
-        {
-            List<WorldTile> tiles = new List<WorldTile>();
 
-            for (int i = 0; i <= range; i++)
-            {
-                tiles.Add(GetTileAt(targetTile.X + i, targetTile.Z));
-                tiles.Add(GetTileAt(targetTile.X, targetTile.Z + i));
-                tiles.Add(GetTileAt(targetTile.X + i, targetTile.Z + i));
-                tiles.Add(GetTileAt(targetTile.X + i, targetTile.Z - i));
-                tiles.Add(GetTileAt(targetTile.X - i, targetTile.Z + i));
-                tiles.Add(GetTileAt(targetTile.X - i, targetTile.Z));
-                tiles.Add(GetTileAt(targetTile.X, targetTile.Z - i));
-                tiles.Add(GetTileAt(targetTile.X - i, targetTile.Z - i));
+        //public List<WorldTile> GetSurroundingTiles(WorldTile targetTile, int range)
+        //{
+        //    List<WorldTile> tiles = new List<WorldTile>();
 
-            }
-            return tiles;
-        }
+        //    for (int i = 0; i <= range; i++)
+        //    {
+        //        tiles.Add(GetTileAt(targetTile.X + i, targetTile.Z));
+        //        tiles.Add(GetTileAt(targetTile.X, targetTile.Z + i));
+        //        tiles.Add(GetTileAt(targetTile.X + i, targetTile.Z + i));
+        //        tiles.Add(GetTileAt(targetTile.X + i, targetTile.Z - i));
+        //        tiles.Add(GetTileAt(targetTile.X - i, targetTile.Z + i));
+        //        tiles.Add(GetTileAt(targetTile.X - i, targetTile.Z));
+        //        tiles.Add(GetTileAt(targetTile.X, targetTile.Z - i));
+        //        tiles.Add(GetTileAt(targetTile.X - i, targetTile.Z - i));
+
+        //    }
+        //    return tiles;
+        //}
     }
 }

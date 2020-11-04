@@ -10,23 +10,44 @@ namespace Roguelite.Core
         public int Z;
 
         [SerializeField] Material defaultMaterial = null;
-        [SerializeField] Material highlightedMaterial = null;
+        [SerializeField] Material hoverMaterial = null;
+        [SerializeField] Material castingMaterial = null;
 
+        Material currentMaterial = null;
+        Material lastMaterial = null;
+
+        private void Start()
+        {
+            currentMaterial = gameObject.GetComponent<MeshRenderer>().material;
+            lastMaterial = currentMaterial;
+        }
 
         private void UpdateMaterial(Material newMaterial)
         {
-            gameObject.GetComponent<MeshRenderer>().material = newMaterial;
-
+            currentMaterial = newMaterial;
+            gameObject.GetComponent<MeshRenderer>().material = currentMaterial;
         }
 
         public void SetDefaultMaterial()
         {
+            lastMaterial = defaultMaterial;
             UpdateMaterial(defaultMaterial);
         }
 
-        public void SetHighlightedMaterial()
+        public void ResetTileMaterial()
         {
-            UpdateMaterial(highlightedMaterial);
+            UpdateMaterial(lastMaterial);
+        }
+
+        public void SetHoverMaterial()
+        {
+            UpdateMaterial(hoverMaterial);
+        }
+
+        public void SetCastingMaterial()
+        {
+            lastMaterial = castingMaterial;
+            UpdateMaterial(castingMaterial);
         }
 
     }

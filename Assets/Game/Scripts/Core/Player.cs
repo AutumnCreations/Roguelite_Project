@@ -27,6 +27,7 @@ namespace Roguelite.Core
         public float Health { get { return health; } }
 
         private WorldTile targetTile = null;
+        private List<WorldTile> tilesInRange = null;
         private WorldTile previousTargetTile = null;
         private Camera cam = null;
         private Vector3 targetPosition;
@@ -47,7 +48,9 @@ namespace Roguelite.Core
             WorldTile tile = World.GetTileAt(X, Z);
             transform.position = tile.transform.position + new Vector3(0, 0.55f);
             targetPosition = transform.position;
+
             cam = FindObjectOfType<Camera>();
+            tilesInRange = new List<WorldTile>();
 
             currentState = State.Idle;
         }
@@ -61,8 +64,6 @@ namespace Roguelite.Core
             if (Input.GetKeyDown(KeyCode.Space)) { hasControl = !hasControl; }
             if (!hasControl) { return; }
 
-            //print(currentState);
-
             switch (currentState)
             {
                 case State.Idle:
@@ -75,7 +76,6 @@ namespace Roguelite.Core
                     HandleCasting();
                     break;
             }
-
         }
 
         #region Movement
@@ -138,25 +138,47 @@ namespace Roguelite.Core
 
         private void CastSpell()
         {
+            if (!tilesInRange.Contains(targetTile)) { return; }
+
             Debug.Log("Casting " + activeSpell.name);
             Instantiate(activeSpell.spellEffect, targetTile.transform.position + Vector3.up, targetTile.transform.rotation);
             currentState = State.Idle;
+
+            foreach (WorldTile tile in tilesInRange)
+            {
+                tile.SetDefaultMaterial();
+            }
         }
 
         public void SetActiveSpell(Spell spell)
         {
+            if (currentState == State.Casting) { return; }
+
             activeSpell = spell;
             currentState = State.Casting;
-            
+
             //To Do: Show spell range, target, and VFX
-            List<WorldTile> tilesInRange = World.GetSurroundingTiles(World.GetTileAt(X, Z), activeSpell.Range);
+            //List<WorldTile> tilesInRange = World.GetSurroundingTiles(World.GetTileAt(X, Z), activeSpell.Range);
+
+            GetTilesInRange();
 
             foreach (WorldTile tile in tilesInRange)
             {
-                if (tile)
-                {
-                tile.SetHighlightedMaterial();
-                }
+                tile.SetCastingMaterial();
+            }
+        }
+
+        private void GetTilesInRange()
+        {
+            tilesInRange.Clear();
+
+            LayerMask layerMask = LayerMask.GetMask("Tile");
+            Collider[] collidersInRange = Physics.OverlapSphere(transform.position, activeSpell.Range, layerMask);
+
+            foreach (Collider collider in collidersInRange)
+            {
+                WorldTile tile = collider.GetComponent<WorldTile>();
+                tilesInRange.Add(tile);
             }
         }
         #endregion
@@ -173,11 +195,11 @@ namespace Roguelite.Core
                 if (hit.transform.CompareTag("Tile"))
                 {
                     targetTile = hit.transform.GetComponent<WorldTile>();
-                    targetTile.SetHighlightedMaterial();
+                    targetTile.SetHoverMaterial();
 
                     if (previousTargetTile && previousTargetTile != targetTile)
                     {
-                        previousTargetTile.SetDefaultMaterial();
+                        previousTargetTile.ResetTileMaterial();
                     }
                     previousTargetTile = targetTile;
                     return;
@@ -188,7 +210,7 @@ namespace Roguelite.Core
             {
                 if (previousTargetTile)
                 {
-                    previousTargetTile.SetDefaultMaterial();
+                    previousTargetTile.ResetTileMaterial();
                 }
                 targetTile = null;
                 previousTargetTile = null;

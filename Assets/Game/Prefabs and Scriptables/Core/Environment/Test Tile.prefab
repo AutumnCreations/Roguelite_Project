@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3166616983770340172}
   - component: {fileID: 424056447913220548}
   - component: {fileID: 6797105497229117749}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Test Tile
   m_TagString: Tile
   m_Icon: {fileID: 0}
@@ -109,4 +109,5 @@ MonoBehaviour:
   X: 0
   Z: 0
   defaultMaterial: {fileID: 2100000, guid: 48884fdfec3dedc458fd7c7ad0220be1, type: 2}
-  highlightedMaterial: {fileID: 2100000, guid: 26a4828581bb08248bf67d4d6e3f133e, type: 2}
+  hoverMaterial: {fileID: 2100000, guid: 26a4828581bb08248bf67d4d6e3f133e, type: 2}
+  castingMaterial: {fileID: 2100000, guid: 195d56e59fa0376429d09bc0b22fffdf, type: 2}

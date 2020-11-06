@@ -41,7 +41,8 @@ namespace Roguelite.Core
             {
                 //freeRoamTarget.position.Set(playerTarget.position.x, freeRoamTarget.position.y, playerTarget.position.z);
                 followPlayer = !followPlayer;
-                freeRoamTarget.position = new Vector3(playerTarget.position.x, freeRoamTarget.position.y, playerTarget.position.z);
+                //freeRoamTarget.position = new Vector3(playerTarget.position.x, freeRoamTarget.position.y, playerTarget.position.z);
+                freeRoamTarget.position = playerTarget.position;
             }
             CameraFollow();
         }

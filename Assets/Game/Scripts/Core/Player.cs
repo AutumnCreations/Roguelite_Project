@@ -80,6 +80,7 @@ namespace Roguelite.Core
             if (isEnemy) return;
 
             TileCheck();
+            UpdateMovement();
 
             if (Input.GetKeyDown(KeyCode.Space)) { hasControl = !hasControl; }
             if (!hasControl) { return; }
@@ -90,7 +91,6 @@ namespace Roguelite.Core
                     MovementInput();
                     break;
                 case State.Moving:
-                    UpdateMovement();
                     break;
                 case State.Casting:
                     HandleCasting();
@@ -107,11 +107,14 @@ namespace Roguelite.Core
                 LookAtTarget(targetPosition);
                 float step = stepSpeed * Time.deltaTime;
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
-                currentState = State.Moving;
-                return;
+                //currentState = State.Moving;
             }
-            animator.SetBool("isMoving", false);
-            currentState = State.Idle;
+            else
+            {
+                animator.SetBool("isMoving", false);
+
+                if (currentState == State.Moving) currentState = State.Idle;
+            }
         }
 
         private void LookAtTarget(Vector3 lookTarget)
@@ -212,8 +215,10 @@ namespace Roguelite.Core
 
             //Debug.Log("Casting " + activeSpell.name);
             Instantiate(activeSpell.spellEffect, targetTile.transform.position + Vector3.up, targetTile.transform.rotation);
-            currentState = State.Idle;
 
+            animator.SetTrigger("castSpell");
+            //animator.SetBool("isCasting", false);
+            currentState = State.Idle;
             SetCastingTiles(false);
         }
 
@@ -239,13 +244,11 @@ namespace Roguelite.Core
             if (currentState == State.Casting) { SetCastingTiles(false); }
 
             activeSpell = spell;
-            currentState = State.Casting;
-
-            //To Do: Show spell range, target, and VFX
-            //List<WorldTile> tilesInRange = World.GetSurroundingTiles(World.GetTileAt(X, Z), activeSpell.Range);
 
             GetTilesInRange(activeSpell.Range * World.XOffset);
 
+            //animator.SetBool("isCasting", true);
+            currentState = State.Casting;
             SetCastingTiles(true);
         }
 
@@ -253,15 +256,20 @@ namespace Roguelite.Core
         {
             tilesInRange.Clear();
 
-            Collider[] collidersInRange = Physics.OverlapSphere(transform.position, range, tileLayerMask);
+            Vector3 spellOrginTile;
+
+            if (currentState == State.Moving)
+            { spellOrginTile = targetPosition; }
+            else
+            { spellOrginTile = transform.position; }
+
+            Collider[] collidersInRange = Physics.OverlapSphere(spellOrginTile, range, tileLayerMask);
 
             foreach (Collider collider in collidersInRange)
             {
                 WorldTile tile = collider.GetComponentInParent<WorldTile>();
                 tilesInRange.Add(tile);
             }
-
-            //tilesInRange = World.GetSurroundingTiles(targetTile, activeSpell.Range);
         }
         #endregion
 
@@ -270,6 +278,7 @@ namespace Roguelite.Core
         {
             if (EventSystem.current.IsPointerOverGameObject())
             { return; }
+
             // Check to see if over a tile and set the target tile
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit[] hits = Physics.RaycastAll(ray);

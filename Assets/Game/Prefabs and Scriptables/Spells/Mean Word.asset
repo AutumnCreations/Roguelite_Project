@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76f68e86e7bfd5446b1a0770383e8fcd, type: 3}
   m_Name: Mean Word
   m_EditorClassIdentifier: 
-  thumbnail: {fileID: 3499144181262065939, guid: 6aab2903acc677f43874cfae859f923a,
+  thumbnail: {fileID: 7692235260354156442, guid: 6aab2903acc677f43874cfae859f923a,
     type: 3}
   description: Shout a rude comment at target enemy
   flavorText: Even babies know it

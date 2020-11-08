@@ -37,8 +37,7 @@ namespace Roguelite.Core
                 {
                     HexTile hex = new HexTile(column, row);
 
-                    GameObject hexTile = Instantiate(hexPrefab, hex.SetPosition(),
-                        Quaternion.identity, this.transform);
+                    GameObject hexTile = Instantiate(hexPrefab, hex.SetPosition(), Quaternion.identity, this.transform);
 
                     hexTile.name = string.Format("{0}, {1}", column, row);
 
@@ -47,9 +46,6 @@ namespace Roguelite.Core
 
                     tile.X = column;
                     tile.Z = row;
-                    //hex.column = column;
-                    //hex.row = row;
-                    //hexTiles.Add(hex);
                 }
             }
         }
@@ -71,8 +67,7 @@ namespace Roguelite.Core
                     tileObject.name = $"{column},{row}";
                     _tiles.Add(tileObject);
 
-                    //var tile = tileObject.AddComponent<WorldTile>();
-                    WorldTile tile = tileObject.GetComponent<WorldTile>();
+                    var tile = tileObject.GetComponent<WorldTile>();
                     tile.X = column;
                     tile.Z = row;
                 }
@@ -95,34 +90,5 @@ namespace Roguelite.Core
                 return tile.X == x && tile.Z == z;
             });
         }
-
-        //public HexTile GetHexAt(int x, int z)
-        //{
-        //    return hexTiles.SingleOrDefault(t =>
-        //    {
-        //        HexTile tile = t;
-        //        return tile.column == x && tile.row == z;
-        //    });
-        //}
-
-        //First attempt at displaying Spell range
-        //public List<WorldTile> GetSurroundingTiles(WorldTile targetTile, int range)
-        //{
-        //    List<WorldTile> tiles = new List<WorldTile>();
-
-        //    for (int i = 0; i <= range; i++)
-        //    {
-        //        tiles.Add(GetTileAt(targetTile.X + i, targetTile.Z));
-        //        tiles.Add(GetTileAt(targetTile.X, targetTile.Z + i));
-        //        tiles.Add(GetTileAt(targetTile.X + i, targetTile.Z + i));
-        //        tiles.Add(GetTileAt(targetTile.X + i, targetTile.Z - i));
-        //        tiles.Add(GetTileAt(targetTile.X - i, targetTile.Z + i));
-        //        tiles.Add(GetTileAt(targetTile.X - i, targetTile.Z));
-        //        tiles.Add(GetTileAt(targetTile.X, targetTile.Z - i));
-        //        tiles.Add(GetTileAt(targetTile.X - i, targetTile.Z - i));
-
-        //    }
-        //    return tiles;
-        //}
     }
 }

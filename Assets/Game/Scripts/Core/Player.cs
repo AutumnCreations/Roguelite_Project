@@ -256,18 +256,15 @@ namespace Roguelite.Core
         {
             tilesInRange.Clear();
 
-            Vector3 spellOrginTile;
+            var spellOrginTile = currentState == State.Moving
+                ? targetPosition
+                : transform.position;
 
-            if (currentState == State.Moving)
-            { spellOrginTile = targetPosition; }
-            else
-            { spellOrginTile = transform.position; }
+            var collidersInRange = Physics.OverlapSphere(spellOrginTile, range, tileLayerMask);
 
-            Collider[] collidersInRange = Physics.OverlapSphere(spellOrginTile, range, tileLayerMask);
-
-            foreach (Collider collider in collidersInRange)
+            foreach (var collider in collidersInRange)
             {
-                WorldTile tile = collider.GetComponentInParent<WorldTile>();
+                var tile = collider.GetComponentInParent<WorldTile>();
                 tilesInRange.Add(tile);
             }
         }

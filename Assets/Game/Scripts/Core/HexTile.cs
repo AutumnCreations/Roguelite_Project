@@ -5,23 +5,29 @@ namespace Roguelite.Core
 {
     public class HexTile : MonoBehaviour
     {
+        static readonly float widthMultiplier = Mathf.Sqrt(3) / 2;
+
         public readonly int Q; // Column
         public readonly int R; // Row
         public readonly int S; // ??
 
-        public int column;
-        public int row;
+        public readonly Vector3 Position;
 
         public HexTile(int q, int r)
         {
             this.Q = q;
             this.R = r;
             this.S = -(q + r);
+
+            this.Position = GetPosition();
         }
 
-        static readonly float widthMultiplier = Mathf.Sqrt(3) / 2;
+        public override string ToString()
+        {
+            return $"{nameof(Q)}: {Q}, {nameof(R)}: {R}, {nameof(S)}: {S}";
+        }
 
-        public Vector3 SetPosition()
+        private Vector3 GetPosition()
         {
             float radius = .5f;
             float height = radius * 2;

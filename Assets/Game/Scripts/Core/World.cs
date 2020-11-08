@@ -37,9 +37,9 @@ namespace Roguelite.Core
                 {
                     HexTile hex = new HexTile(column, row);
 
-                    GameObject hexTile = Instantiate(hexPrefab, hex.SetPosition(), Quaternion.identity, this.transform);
+                    GameObject hexTile = Instantiate(hexPrefab, hex.Position, Quaternion.identity, this.transform);
 
-                    hexTile.name = string.Format("{0}, {1}", column, row);
+                    hexTile.name = hex.ToString();
 
                     WorldTile tile = hexTile.GetComponent<WorldTile>();
                     _tiles.Add(tile);

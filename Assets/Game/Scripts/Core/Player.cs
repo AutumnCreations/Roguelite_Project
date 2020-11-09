@@ -1,6 +1,6 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using Roguelite.UI;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -33,6 +33,8 @@ namespace Roguelite.Core
 
         public float Health { get { return health; } }
 
+        private bool spellCasted = false;
+
         private WorldTile targetTile = null;
         private List<WorldTile> tilesInRange = null;
         private WorldTile previousTargetTile = null;
@@ -53,9 +55,8 @@ namespace Roguelite.Core
         #endregion
 
         #region Debugging
-        void OnDrawGizmosSelected()
+        void OnDrawGizmos()
         {
-            // Draw a yellow sphere at the transform's position
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, spellRangeVisualizer);
         }
@@ -64,7 +65,7 @@ namespace Roguelite.Core
         private void Start()
         {
             cam = FindObjectOfType<Camera>();
-            WorldTile tile = World.GetTileAt(X, Z);
+            var tile = World.GetTileAt(X, Z);
             transform.position = tile.transform.position + stepOffset;
             targetPosition = transform.position;
 
@@ -101,42 +102,41 @@ namespace Roguelite.Core
         #region Movement
         private void UpdateMovement()
         {
-
             if (transform.position != targetPosition)
             {
                 LookAtTarget(targetPosition);
-                float step = stepSpeed * Time.deltaTime;
+                var step = stepSpeed * Time.deltaTime;
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
-                //currentState = State.Moving;
             }
             else
             {
                 animator.SetBool("isMoving", false);
-
                 if (currentState == State.Moving) currentState = State.Idle;
             }
         }
 
         private void LookAtTarget(Vector3 lookTarget)
         {
-            Vector3 dir = lookTarget - transform.position;
-            dir.y = 0; // keep the direction strictly horizontal
-            Quaternion rot = Quaternion.LookRotation(dir);
-            // slerp to the desired rotation over time
-            transform.rotation = Quaternion.Slerp(transform.rotation, rot, rotationSpeed * Time.deltaTime);
+            var direction = lookTarget - transform.position;
+            //Keep the direction strictly horizontal
+            direction.y = 0;
+            var targetRotation = Quaternion.LookRotation(direction);
+
+            //Slerp to the desired rotation over time
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
 
         private void MovementInput()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(0))
             {
                 if (!targetTile) return;
 
-                Vector2 currentTile = new Vector2(X, Z);
-                Vector2 tilePos = new Vector2(targetTile.X, targetTile.Z);
+                var currentTile = new Vector2(X, Z);
+                var tilePos = new Vector2(targetTile.X, targetTile.Z);
 
-                print("Current Tile: " + currentTile);
-                print("Next Tile: " + tilePos);
+                //print("Current Tile: " + currentTile);
+                //print("Next Tile: " + tilePos);
 
                 GetTilesInRange(.75f);
 
@@ -145,19 +145,19 @@ namespace Roguelite.Core
                 MoveToTile(targetTile);
 
             }
-            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
             {
                 Move(0, 1);
             }
-            else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+            else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
                 Move(-1, 0);
             }
-            else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+            else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
             {
                 Move(0, -1);
             }
-            else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+            else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
                 Move(1, 0);
             }
@@ -174,7 +174,7 @@ namespace Roguelite.Core
 
         private void Move(int horizontal, int vertical)
         {
-            WorldTile tileObject = World.GetTileAt(X + horizontal, Z + vertical);
+            var tileObject = World.GetTileAt(X + horizontal, Z + vertical);
             if (tileObject is null)
             {
                 return;
@@ -194,7 +194,7 @@ namespace Roguelite.Core
         #region Combat
         private void HandleCasting()
         {
-            if (!targetTile) return;
+            if (!targetTile || spellCasted) return;
 
             if (tilesInRange.Contains(targetTile))
             {
@@ -203,23 +203,24 @@ namespace Roguelite.Core
 
             if (Input.GetMouseButtonDown(0))
             {
-                CastSpell();
+                //Checks if cursor is over UI element
+                if (!tilesInRange.Contains(targetTile))
+                { return; }
+
+                StartCoroutine(CastSpell());
             }
         }
 
-        private void CastSpell()
+        private IEnumerator CastSpell()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-            { return; }
-            if (!tilesInRange.Contains(targetTile)) { return; }
-
-            //Debug.Log("Casting " + activeSpell.name);
             Instantiate(activeSpell.spellEffect, targetTile.transform.position + Vector3.up, targetTile.transform.rotation);
-
             animator.SetTrigger("castSpell");
-            //animator.SetBool("isCasting", false);
-            currentState = State.Idle;
             SetCastingTiles(false);
+            spellCasted = true;
+
+            yield return new WaitForSeconds(2.3f);
+            currentState = State.Idle;
+            spellCasted = false;
         }
 
         private void SetCastingTiles(bool isOn)
@@ -244,10 +245,8 @@ namespace Roguelite.Core
             if (currentState == State.Casting) { SetCastingTiles(false); }
 
             activeSpell = spell;
-
             GetTilesInRange(activeSpell.Range * World.XOffset);
 
-            //animator.SetBool("isCasting", true);
             currentState = State.Casting;
             SetCastingTiles(true);
         }
@@ -259,6 +258,7 @@ namespace Roguelite.Core
             var spellOrginTile = currentState == State.Moving
                 ? targetPosition
                 : transform.position;
+
 
             var collidersInRange = Physics.OverlapSphere(spellOrginTile, range, tileLayerMask);
 
@@ -273,11 +273,11 @@ namespace Roguelite.Core
         #region World Interaction
         private void TileCheck()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-            { return; }
+            //if (eventsystem.current.ispointerovergameobject())
+            //{ return; }
 
             // Check to see if over a tile and set the target tile
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            var ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit[] hits = Physics.RaycastAll(ray);
 
             foreach (RaycastHit hit in hits)

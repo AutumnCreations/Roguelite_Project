@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using TMPro;
 
 namespace Roguelite.Core
 {
@@ -9,16 +10,15 @@ namespace Roguelite.Core
         [HideInInspector]
         public int Z;
 
-        [SerializeField] Material defaultMaterial = null;
-        [SerializeField] Material hoverMaterial = null;
-        [SerializeField] Material castingMaterial = null;
-
         [SerializeField] Color defaultColor;
         [SerializeField] Color hoverColor;
         [SerializeField] Color castingColor;
 
-        Material currentMaterial = null;
-        Material lastMaterial = null;
+        [SerializeField] public TextMeshProUGUI xCoordinate;
+        [SerializeField] public TextMeshProUGUI yCoordinate;
+        [SerializeField] public TextMeshProUGUI zCoordinate;
+
+        Material tileMaterial = null;
 
         Color currentColor;
         Color lastColor;
@@ -29,48 +29,17 @@ namespace Roguelite.Core
         {
             child = gameObject.GetComponentInChildren<MeshRenderer>();
 
-            currentMaterial = child.material;
-            lastMaterial = currentMaterial;
+            tileMaterial = child.material;
 
-            currentColor = currentMaterial.color;
+            currentColor = tileMaterial.color;
             lastColor = currentColor;
         }
-
-        #region Materials
-        private void UpdateMaterial(Material newMaterial)
-        {
-            currentMaterial = newMaterial;
-            child.material = currentMaterial;
-        }
-
-        public void SetDefaultMaterial()
-        {
-            lastMaterial = defaultMaterial;
-            UpdateMaterial(defaultMaterial);
-        }
-
-        public void ResetTileMaterial()
-        {
-            UpdateMaterial(lastMaterial);
-        }
-
-        public void SetHoverMaterial()
-        {
-            UpdateMaterial(hoverMaterial);
-        }
-
-        public void SetCastingMaterial()
-        {
-            lastMaterial = castingMaterial;
-            UpdateMaterial(castingMaterial);
-        }
-        #endregion
 
         #region Colors
         public void UpdateColor(Color newColor)
         {
             currentColor = newColor;
-            currentMaterial.color = currentColor;
+            tileMaterial.color = currentColor;
         }
 
         public void SetDefaultColor()

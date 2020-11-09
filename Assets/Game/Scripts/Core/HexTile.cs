@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace Roguelite.Core
 {
-    public class HexTile : MonoBehaviour
+    public class HexTile
     {
         static readonly float widthMultiplier = Mathf.Sqrt(3) / 2;
 
         public readonly int Q; // Column
         public readonly int R; // Row
-        public readonly int S; // ??
+        public readonly int S;
 
         public readonly Vector3 Position;
 

@@ -16,7 +16,6 @@ namespace Roguelite.Core
         [SerializeField] private GameObject hexPrefab;
 
         readonly private float xOffset = .8660254f;
-        private float zOffset = .76f;
 
         public float XOffset { get { return xOffset; } }
 
@@ -35,13 +34,14 @@ namespace Roguelite.Core
             {
                 for (var row = 0; row < _depth; row++)
                 {
-                    HexTile hex = new HexTile(column, row);
+                    var hex = new HexTile(column, row);
 
-                    GameObject hexTile = Instantiate(hexPrefab, hex.Position, Quaternion.identity, this.transform);
+                    var hexTile = Instantiate(hexPrefab, hex.Position, Quaternion.identity, this.transform);
 
-                    hexTile.name = hex.ToString();
 
-                    WorldTile tile = hexTile.GetComponent<WorldTile>();
+                    var tile = hexTile.GetComponent<WorldTile>();
+                    SetTileName(hex, tile);
+
                     _tiles.Add(tile);
 
                     tile.X = column;
@@ -50,30 +50,7 @@ namespace Roguelite.Core
             }
         }
 
-        private void GenerateWorld()
-        {
-            DestroyWorld();
-            for (var column = 0; column < _width; column++)
-            {
-                for (var row = 0; row < _depth; row++)
-                {
-                    float xPosition = column * xOffset;
-                    if (row % 2 == 1)
-                    { xPosition += xOffset / 2; }
-
-                    var position = new Vector3(xPosition, 0, row * zOffset);
-
-                    WorldTile tileObject = Instantiate(_tilePrefab, position, Quaternion.identity, this.transform);
-                    tileObject.name = $"{column},{row}";
-                    _tiles.Add(tileObject);
-
-                    var tile = tileObject.GetComponent<WorldTile>();
-                    tile.X = column;
-                    tile.Z = row;
-                }
-            }
-        }
-
+        //Currently Unused
         private void DestroyWorld()
         {
             foreach (WorldTile tile in _tiles)
@@ -86,9 +63,17 @@ namespace Roguelite.Core
         {
             return _tiles.SingleOrDefault(t =>
             {
-                WorldTile tile = t.GetComponent<WorldTile>();
+                var tile = t.GetComponent<WorldTile>();
                 return tile.X == x && tile.Z == z;
             });
+        }
+
+        private static void SetTileName(HexTile hex, WorldTile tile)
+        {
+            tile.name = hex.ToString();
+            tile.xCoordinate.text = $"{hex.Q}";
+            tile.yCoordinate.text = $"{hex.R}";
+            tile.zCoordinate.text = $"{hex.S}";
         }
     }
 }

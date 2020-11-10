@@ -27,9 +27,6 @@ namespace Roguelite.Core
         [Header("Player Stats")]
         [SerializeField] private float health = 10f;
 
-        [Header("Debugging")]
-        [SerializeField] private float spellRangeVisualizer = 5f;
-
         public float Health { get { return health; } }
 
         private bool spellCasted = false;
@@ -53,24 +50,22 @@ namespace Roguelite.Core
 
         #endregion
 
-        #region Debugging
-        void OnDrawGizmos()
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, spellRangeVisualizer);
-        }
-        #endregion
-
         private void Start()
         {
             cam = FindObjectOfType<Camera>();
+
+            var random = new System.Random();
             var tile = World.GetTileAt(Q, R);
+            while (tile is null)
+            {
+                tile = World.GetTileAt(random.Next(11) - 5, random.Next(11) - 5);
+            }
+
             transform.position = tile.transform.position + stepOffset;
             targetPosition = transform.position;
 
             tileLayerMask = LayerMask.GetMask("Tile");
             tilesInRange = new List<WorldTile>();
-            spellRangeVisualizer *= World.XOffset;
 
             currentState = State.Idle;
         }
@@ -79,7 +74,7 @@ namespace Roguelite.Core
         {
             if (isEnemy) return;
 
-            TileCheck();
+            UpdateTargetTile();
             UpdateMovement();
 
             if (Input.GetKeyDown(KeyCode.Space)) { hasControl = !hasControl; }
@@ -256,7 +251,7 @@ namespace Roguelite.Core
         #endregion
 
         #region World Interaction
-        private void TileCheck()
+        private void UpdateTargetTile()
         {
             //if (eventsystem.current.ispointerovergameobject())
             //{ return; }

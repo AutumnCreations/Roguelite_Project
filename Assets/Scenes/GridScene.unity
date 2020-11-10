@@ -1113,6 +1113,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 528949735, guid: f243acc291fcea740b6deef555c1d092, type: 3}
+      propertyPath: _radius
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 1616766764, guid: f243acc291fcea740b6deef555c1d092, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -4139,7 +4143,6 @@ MonoBehaviour:
   animator: {fileID: 1475751676}
   isEnemy: 1
   health: 0
-  spellRangeVisualizer: 5
 --- !u!1 &507323946
 GameObject:
   m_ObjectHideFlags: 0
@@ -6065,7 +6068,6 @@ MonoBehaviour:
   animator: {fileID: 1304130952}
   isEnemy: 1
   health: 0
-  spellRangeVisualizer: 5
 --- !u!1 &764846176
 GameObject:
   m_ObjectHideFlags: 0
@@ -6798,7 +6800,6 @@ MonoBehaviour:
   animator: {fileID: 1137341744}
   isEnemy: 1
   health: 0
-  spellRangeVisualizer: 5
 --- !u!1 &867313110
 GameObject:
   m_ObjectHideFlags: 0
@@ -13269,7 +13270,6 @@ MonoBehaviour:
   animator: {fileID: 780229810}
   isEnemy: 1
   health: 0
-  spellRangeVisualizer: 5
 --- !u!1 &1768618942
 GameObject:
   m_ObjectHideFlags: 0
@@ -15215,7 +15215,6 @@ MonoBehaviour:
   animator: {fileID: 1179288730}
   isEnemy: 1
   health: 0
-  spellRangeVisualizer: 5
 --- !u!4 &2074664500
 Transform:
   m_ObjectHideFlags: 0
@@ -18514,4 +18513,3 @@ MonoBehaviour:
   animator: {fileID: 3766284645559023233}
   isEnemy: 1
   health: 0
-  spellRangeVisualizer: 5

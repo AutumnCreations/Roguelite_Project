@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Assets.Game.Scripts.Extensions;
 using UnityEngine;
 
@@ -14,21 +13,16 @@ namespace Roguelite.Core
         [SerializeField] private WorldTile _tilePrefab;
         [SerializeField] private GameObject hexPrefab;
 
-        private readonly float xOffset = .8660254f;
-        private float zOffset = .76f;
-
-        public float XOffset { get { return xOffset; } }
-
-        private readonly List<WorldTile> _tiles = new List<WorldTile>();
+        private readonly Dictionary<HexTile, WorldTile> _tiles = new Dictionary<HexTile, WorldTile>();
 
         private void Awake()
         {
             GenerateMap();
         }
 
-        public void GenerateMap()
+        private void GenerateMap()
         {
-            DestroyWorld();
+            var random = new System.Random();
 
             for (var x = -_radius; x <= _radius; x++)
             {
@@ -36,7 +30,7 @@ namespace Roguelite.Core
                 {
                     for (var z = -_radius; z <= _radius; z++)
                     {
-                        if (x + y + z != 0)
+                        if (x + y + z != 0 || random.Next(10) == 0)
                         {
                             continue;
                         }
@@ -47,27 +41,17 @@ namespace Roguelite.Core
                         var tile = hexTile.GetComponent<WorldTile>();
                         tile.Hex = hex;
 
-                        _tiles.Add(tile);
+                        _tiles.Add(hex, tile);
                     }
                 }
             }
         }
 
-        private void DestroyWorld()
-        {
-            foreach (var tile in _tiles)
-            {
-                Destroy(tile);
-            }
-        }
-
         public WorldTile GetTileAt(int q, int r)
         {
-            return _tiles.SingleOrDefault(t =>
-            {
-                var tile = t.GetComponent<WorldTile>();
-                return tile.Hex.Q == q && tile.Hex.R == r;
-            });
+            return _tiles.TryGetValue(new HexTile(q, r), out var value)
+                ? value
+                : null;
         }
 
         public IEnumerable<WorldTile> GetTilesWithinRange(int q, int r, int range)

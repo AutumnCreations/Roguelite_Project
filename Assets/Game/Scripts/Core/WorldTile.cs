@@ -19,7 +19,17 @@ namespace Roguelite.Core
         Color lastColor;
 
         MeshRenderer child = null;
-        public HexTile Hex { get; set; }
+
+        private HexTile _hex;
+        public HexTile Hex
+        {
+            get => _hex;
+            set
+            {
+                _hex = value;
+                SetTileName(value);
+            }
+        }
 
         private void Start()
         {
@@ -29,6 +39,14 @@ namespace Roguelite.Core
 
             currentColor = tileMaterial.color;
             lastColor = currentColor;
+        }
+
+        private void SetTileName(HexTile hex)
+        {
+            name = hex.ToString();
+            xCoordinate.text = $"{hex.Q}";
+            yCoordinate.text = $"{hex.R}";
+            zCoordinate.text = $"{hex.S}";
         }
 
         #region Colors

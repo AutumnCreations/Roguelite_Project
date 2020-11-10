@@ -415,8 +415,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b526ab50790f9e94087a540b8fa20034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  X: 0
-  Z: 0
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   hoverColor: {r: 0.25231397, g: 0.7348144, b: 0.8490566, a: 1}
   castingColor: {r: 0.5377358, g: 0, b: 0.13649295, a: 1}

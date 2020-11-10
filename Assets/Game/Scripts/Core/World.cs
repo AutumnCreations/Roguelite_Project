@@ -8,8 +8,7 @@ namespace Roguelite.Core
     public class World : MonoBehaviour
     {
         [Header("World Size")]
-        [SerializeField] private int _width = 16;
-        [SerializeField] private int _depth = 9;
+        [SerializeField] private int _radius = 16;
 
         [Header("Prefabs")]
         [SerializeField] private WorldTile _tilePrefab;
@@ -30,18 +29,26 @@ namespace Roguelite.Core
         public void GenerateMap()
         {
             DestroyWorld();
-            for (var column = 0; column < _width; column++)
+
+            for (var x = -_radius; x <= _radius; x++)
             {
-                for (var row = 0; row < _depth; row++)
+                for (var y = -_radius; y <= _radius; y++)
                 {
-                    var hex = new HexTile(column, row);
+                    for (var z = -_radius; z <= _radius; z++)
+                    {
+                        if (x + y + z != 0)
+                        {
+                            continue;
+                        }
 
-                    var hexTile = Instantiate(hexPrefab, hex.GetWorldPosition(), Quaternion.identity, this.transform);
-                    var tile = hexTile.GetComponent<WorldTile>();
-                    SetTileName(hex, tile);
-                    tile.Hex = hex;
+                        var hex = new HexTile(x, z);
 
-                    _tiles.Add(tile);
+                        var hexTile = Instantiate(hexPrefab, hex.GetWorldPosition(), Quaternion.identity, this.transform);
+                        var tile = hexTile.GetComponent<WorldTile>();
+                        tile.Hex = hex;
+
+                        _tiles.Add(tile);
+                    }
                 }
             }
         }
@@ -84,14 +91,6 @@ namespace Roguelite.Core
                     }
                 }
             }
-        }
-
-        private static void SetTileName(HexTile hex, WorldTile tile)
-        {
-            tile.name = hex.ToString();
-            tile.xCoordinate.text = $"{hex.Q}";
-            tile.yCoordinate.text = $"{hex.R}";
-            tile.zCoordinate.text = $"{hex.S}";
         }
     }
 }

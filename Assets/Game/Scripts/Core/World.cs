@@ -15,21 +15,21 @@ namespace Roguelite.Core
         [SerializeField] private WorldTile _tilePrefab;
         [SerializeField] private GameObject hexPrefab;
 
-        readonly private float xOffset = .8660254f;
+        private readonly float xOffset = .8660254f;
+        private float zOffset = .76f;
 
         public float XOffset { get { return xOffset; } }
 
         private readonly List<WorldTile> _tiles = new List<WorldTile>();
-        private readonly List<HexTile> hexTiles = new List<HexTile>();
 
         private void Awake()
         {
-            //GenerateWorld();
             GenerateMap();
         }
 
         public void GenerateMap()
         {
+            DestroyWorld();
             for (var column = 0; column < _width; column++)
             {
                 for (var row = 0; row < _depth; row++)
@@ -37,20 +37,17 @@ namespace Roguelite.Core
                     var hex = new HexTile(column, row);
 
                     var hexTile = Instantiate(hexPrefab, hex.Position, Quaternion.identity, this.transform);
-
-
                     var tile = hexTile.GetComponent<WorldTile>();
                     SetTileName(hex, tile);
 
-                    _tiles.Add(tile);
-
                     tile.X = column;
                     tile.Z = row;
+
+                    _tiles.Add(tile);
                 }
             }
         }
 
-        //Currently Unused
         private void DestroyWorld()
         {
             foreach (WorldTile tile in _tiles)
@@ -66,6 +63,29 @@ namespace Roguelite.Core
                 var tile = t.GetComponent<WorldTile>();
                 return tile.X == x && tile.Z == z;
             });
+        }
+
+        public IEnumerable<WorldTile> GetTilesWithinRange(int q, int r, int range)
+        {
+            for (var x = -range; x <= range; x++)
+            {
+                for (var y = -range; y <= range; y++)
+                {
+                    for (var z = -range; z <= range; z++)
+                    {
+                        if (x + y + z != 0)
+                        {
+                            continue;
+                        }
+
+                        var worldTile = GetTileAt(q + x, r + y);
+                        if (worldTile is { })
+                        {
+                            yield return worldTile;
+                        }
+                    }
+                }
+            }
         }
 
         private static void SetTileName(HexTile hex, WorldTile tile)

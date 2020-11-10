@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Roguelite.Core
 {
@@ -135,7 +133,7 @@ namespace Roguelite.Core
                 var currentTile = new Vector2(X, Z);
                 var tilePos = new Vector2(targetTile.X, targetTile.Z);
 
-                GetTilesInRange(.75f);
+                GetTilesInRange(1);
 
                 if (tilePos == currentTile || !tilesInRange.Contains(targetTile)) return;
 
@@ -162,14 +160,25 @@ namespace Roguelite.Core
             {
                 Move(1, -1);
             }
-            else if (Input.GetKey(KeyCode.Q))
+            else if (Input.GetKey(KeyCode.W))
             {
                 Move(-1, 1);
             }
         }
 
+        private void Move(int horizontal, int vertical)
+        {
+            var target = World.GetTileAt(X + horizontal, Z + vertical);
+            MoveToTile(target);
+        }
+
         private void MoveToTile(WorldTile target)
         {
+            if (target is null)
+            {
+                return;
+            }
+
             targetPosition = target.transform.position + stepOffset;
             X = target.X;
             Z = target.Z;
@@ -177,23 +186,6 @@ namespace Roguelite.Core
             currentState = State.Moving;
         }
 
-        private void Move(int horizontal, int vertical)
-        {
-            var tileObject = World.GetTileAt(X + horizontal, Z + vertical);
-            if (tileObject is null)
-            {
-                return;
-            }
-
-            targetPosition = tileObject.transform.position + stepOffset;
-
-            X = tileObject.X;
-            Z = tileObject.Z;
-
-
-            animator.SetBool("isMoving", true);
-            currentState = State.Moving;
-        }
         #endregion
 
         #region Combat
@@ -250,28 +242,16 @@ namespace Roguelite.Core
             if (currentState == State.Casting) { SetCastingTiles(false); }
 
             activeSpell = spell;
-            GetTilesInRange(activeSpell.Range * World.XOffset);
+            GetTilesInRange(activeSpell.Range);
 
             currentState = State.Casting;
             SetCastingTiles(true);
         }
 
-        private void GetTilesInRange(float range)
+        private void GetTilesInRange(int range)
         {
             tilesInRange.Clear();
-
-            var spellOrginTile = currentState == State.Moving
-                ? targetPosition
-                : transform.position;
-
-
-            var collidersInRange = Physics.OverlapSphere(spellOrginTile, range, tileLayerMask);
-
-            foreach (var collider in collidersInRange)
-            {
-                var tile = collider.GetComponentInParent<WorldTile>();
-                tilesInRange.Add(tile);
-            }
+            tilesInRange.AddRange(World.GetTilesWithinRange(X, Z, range));
         }
         #endregion
 

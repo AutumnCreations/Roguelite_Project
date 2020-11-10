@@ -4139,10 +4139,9 @@ MonoBehaviour:
   stepOffset: {x: 0, y: 0.0525, z: 0}
   stepSpeed: 2
   rotationSpeed: 10
-  hasControl: 1
   animator: {fileID: 1475751676}
-  isEnemy: 1
   health: 0
+  CurrentCharacterState: 0
 --- !u!1 &507323946
 GameObject:
   m_ObjectHideFlags: 0
@@ -6064,10 +6063,9 @@ MonoBehaviour:
   stepOffset: {x: 0, y: 0.0525, z: 0}
   stepSpeed: 2
   rotationSpeed: 10
-  hasControl: 1
   animator: {fileID: 1304130952}
-  isEnemy: 1
   health: 0
+  CurrentCharacterState: 0
 --- !u!1 &764846176
 GameObject:
   m_ObjectHideFlags: 0
@@ -6796,10 +6794,9 @@ MonoBehaviour:
   stepOffset: {x: 0, y: 0.0525, z: 0}
   stepSpeed: 2
   rotationSpeed: 10
-  hasControl: 1
   animator: {fileID: 1137341744}
-  isEnemy: 1
   health: 0
+  CurrentCharacterState: 0
 --- !u!1 &867313110
 GameObject:
   m_ObjectHideFlags: 0
@@ -7073,6 +7070,26 @@ Transform:
   m_Father: {fileID: 580562551}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &891008423 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4160108101747719201, guid: f243acc291fcea740b6deef555c1d092,
+    type: 3}
+  m_PrefabInstance: {fileID: 109152576}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &891008427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891008423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce2293eed1a31b4e88bc32c92fbb2ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  World: {fileID: 16281124}
+  hasControl: 1
 --- !u!1 &902470697
 GameObject:
   m_ObjectHideFlags: 0
@@ -13266,10 +13283,9 @@ MonoBehaviour:
   stepOffset: {x: 0, y: 0.0525, z: 0}
   stepSpeed: 2
   rotationSpeed: 10
-  hasControl: 1
   animator: {fileID: 780229810}
-  isEnemy: 1
   health: 0
+  CurrentCharacterState: 0
 --- !u!1 &1768618942
 GameObject:
   m_ObjectHideFlags: 0
@@ -15211,10 +15227,9 @@ MonoBehaviour:
   stepOffset: {x: 0, y: 0.0525, z: 0}
   stepSpeed: 2
   rotationSpeed: 10
-  hasControl: 1
   animator: {fileID: 1179288730}
-  isEnemy: 1
   health: 0
+  CurrentCharacterState: 0
 --- !u!4 &2074664500
 Transform:
   m_ObjectHideFlags: 0
@@ -18509,7 +18524,6 @@ MonoBehaviour:
   stepOffset: {x: 0, y: 0.0525, z: 0}
   stepSpeed: 2
   rotationSpeed: 10
-  hasControl: 1
   animator: {fileID: 3766284645559023233}
-  isEnemy: 1
   health: 0
+  CurrentCharacterState: 0

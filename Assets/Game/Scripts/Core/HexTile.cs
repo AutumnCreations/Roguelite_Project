@@ -14,11 +14,11 @@ namespace Roguelite.Core
 
         public HexTile(int q, int r)
         {
-            this.Q = q;
-            this.R = r;
-            this.S = -(q + r);
+            Q = q;
+            R = r;
+            S = -(q + r);
 
-            this.Position = GetPosition();
+            Position = GetPosition();
         }
 
         public override string ToString()
@@ -35,7 +35,7 @@ namespace Roguelite.Core
             float verSpacing = height * .75f;
             float horSpacing = width;
 
-            return new Vector3(horSpacing * (this.Q + this.R / 2f), 0, verSpacing * this.R);
+            return new Vector3(horSpacing * (Q + R / 2f), 0, verSpacing * R);
         }
     }
 }

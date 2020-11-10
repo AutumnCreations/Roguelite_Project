@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Game.Scripts.Extensions;
 using UnityEngine;
 
 namespace Roguelite.Core
@@ -8,8 +9,8 @@ namespace Roguelite.Core
     {
         #region Variables
         [Header("World References")]
-        public int X;
-        public int Z;
+        public int Q;
+        public int R;
         public World World;
         [SerializeField] private Vector3 stepOffset = new Vector3(0, .05f);
 
@@ -63,7 +64,7 @@ namespace Roguelite.Core
         private void Start()
         {
             cam = FindObjectOfType<Camera>();
-            var tile = World.GetTileAt(X, Z);
+            var tile = World.GetTileAt(Q, R);
             transform.position = tile.transform.position + stepOffset;
             targetPosition = transform.position;
 
@@ -128,19 +129,18 @@ namespace Roguelite.Core
         {
             if (Input.GetMouseButton(0))
             {
-                if (!targetTile) return;
+                if (targetTile is null)
+                {
+                    return;
+                }
 
-                var currentTile = new Vector2(X, Z);
-                var tilePos = new Vector2(targetTile.X, targetTile.Z);
-
-                GetTilesInRange(1);
-
-                if (tilePos == currentTile || !tilesInRange.Contains(targetTile)) return;
-
-                MoveToTile(targetTile);
+                var distance = targetTile.Hex.DistanceTo(Q, R);
+                if (distance == 1)
+                {
+                    MoveToTile(targetTile);
+                }
             }
-
-            if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.UpArrow))
+            else if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.UpArrow))
             {
                 Move(0, 1);
             }
@@ -168,7 +168,7 @@ namespace Roguelite.Core
 
         private void Move(int horizontal, int vertical)
         {
-            var target = World.GetTileAt(X + horizontal, Z + vertical);
+            var target = World.GetTileAt(Q + horizontal, R + vertical);
             MoveToTile(target);
         }
 
@@ -180,8 +180,8 @@ namespace Roguelite.Core
             }
 
             targetPosition = target.transform.position + stepOffset;
-            X = target.X;
-            Z = target.Z;
+            Q = target.Hex.Q;
+            R = target.Hex.R;
             animator.SetBool("isMoving", true);
             currentState = State.Moving;
         }
@@ -251,7 +251,7 @@ namespace Roguelite.Core
         private void GetTilesInRange(int range)
         {
             tilesInRange.Clear();
-            tilesInRange.AddRange(World.GetTilesWithinRange(X, Z, range));
+            tilesInRange.AddRange(World.GetTilesWithinRange(Q, R, range));
         }
         #endregion
 

@@ -5,11 +5,6 @@ namespace Roguelite.Core
 {
     public class WorldTile : MonoBehaviour
     {
-        [HideInInspector]
-        public int X;
-        [HideInInspector]
-        public int Z;
-
         [SerializeField] Color defaultColor;
         [SerializeField] Color hoverColor;
         [SerializeField] Color castingColor;
@@ -24,6 +19,7 @@ namespace Roguelite.Core
         Color lastColor;
 
         MeshRenderer child = null;
+        public HexTile Hex { get; set; }
 
         private void Start()
         {

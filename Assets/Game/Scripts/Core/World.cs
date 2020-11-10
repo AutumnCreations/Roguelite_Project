@@ -10,7 +10,6 @@ namespace Roguelite.Core
         [SerializeField] private int _width = 16;
         [SerializeField] private int _depth = 9;
 
-
         [Header("Prefabs")]
         [SerializeField] private WorldTile _tilePrefab;
         [SerializeField] private GameObject hexPrefab;
@@ -39,9 +38,7 @@ namespace Roguelite.Core
                     var hexTile = Instantiate(hexPrefab, hex.Position, Quaternion.identity, this.transform);
                     var tile = hexTile.GetComponent<WorldTile>();
                     SetTileName(hex, tile);
-
-                    tile.X = column;
-                    tile.Z = row;
+                    tile.Hex = hex;
 
                     _tiles.Add(tile);
                 }
@@ -56,12 +53,12 @@ namespace Roguelite.Core
             }
         }
 
-        public WorldTile GetTileAt(int x, int z)
+        public WorldTile GetTileAt(int q, int r)
         {
             return _tiles.SingleOrDefault(t =>
             {
                 var tile = t.GetComponent<WorldTile>();
-                return tile.X == x && tile.Z == z;
+                return tile.Hex.Q == q && tile.Hex.R == r;
             });
         }
 

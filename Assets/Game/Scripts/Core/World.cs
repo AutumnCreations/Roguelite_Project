@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.Game.Scripts.Extensions;
 using UnityEngine;
 
 namespace Roguelite.Core
@@ -35,7 +36,7 @@ namespace Roguelite.Core
                 {
                     var hex = new HexTile(column, row);
 
-                    var hexTile = Instantiate(hexPrefab, hex.Position, Quaternion.identity, this.transform);
+                    var hexTile = Instantiate(hexPrefab, hex.GetWorldPosition(), Quaternion.identity, this.transform);
                     var tile = hexTile.GetComponent<WorldTile>();
                     SetTileName(hex, tile);
                     tile.Hex = hex;
@@ -47,7 +48,7 @@ namespace Roguelite.Core
 
         private void DestroyWorld()
         {
-            foreach (WorldTile tile in _tiles)
+            foreach (var tile in _tiles)
             {
                 Destroy(tile);
             }

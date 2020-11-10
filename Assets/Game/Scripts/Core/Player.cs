@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Scripts.Extensions;
 using Scripts.Items;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace Scripts.Core
 
         private Character character;
 
-        protected void Start()
+        private void Start()
         {
             cam = FindObjectOfType<Camera>();
             tilesInRange = new List<WorldTile>();
@@ -51,6 +52,62 @@ namespace Scripts.Core
                 case CharacterState.Casting:
                     HandleCasting();
                     break;
+            }
+        }
+
+        public void SetActiveSpell(Spell spell)
+        {
+            if (character.CurrentCharacterState == CharacterState.Casting)
+            {
+                SetCastingTiles(false);
+                return;
+            }
+
+            activeSpell = spell;
+            GetTilesInRange(activeSpell.Range);
+
+            character.CurrentCharacterState = CharacterState.Casting;
+            SetCastingTiles(true);
+        }
+
+        private void GetTilesInRange(int range)
+        {
+            tilesInRange.Clear();
+            tilesInRange.AddRange(World.GetTilesWithinRange(character.Q, character.R, range));
+        }
+
+        private void UpdateTargetTile()
+        {
+            // Check to see if over a tile and set the target tile
+            var ray = cam.ScreenPointToRay(Input.mousePosition);
+            var hits = Physics.RaycastAll(ray);
+
+            foreach (var hit in hits)
+            {
+                if (hit.transform.CompareTag("Tile"))
+                {
+                    targetTile = hit.transform.GetComponentInParent<WorldTile>();
+                    targetTile.SetHoverColor();
+
+                    if (previousTargetTile && previousTargetTile != targetTile)
+                    {
+                        previousTargetTile.ResetTileColor();
+                    }
+
+                    previousTargetTile = targetTile;
+                    return;
+                }
+            }
+
+            if (hits.Length < 1)
+            {
+                if (previousTargetTile)
+                {
+                    previousTargetTile.ResetTileColor();
+                }
+
+                targetTile = null;
+                previousTargetTile = null;
             }
         }
 
@@ -95,7 +152,7 @@ namespace Scripts.Core
             }
         }
 
-        protected void HandleCasting()
+        private void HandleCasting()
         {
             if (!targetTile || castingSpell || !tilesInRange.Contains(targetTile))
             {
@@ -106,9 +163,18 @@ namespace Scripts.Core
 
             if (Input.GetMouseButtonDown(0))
             {
-                SetCastingTiles(false);
-                StartCoroutine(character.CastSpell(activeSpell, targetTile));
+                StartCoroutine(CastSpell());
             }
+        }
+
+        private IEnumerator CastSpell()
+        {
+            hasControl = false;
+            SetCastingTiles(false);
+
+            yield return character.CastSpell(activeSpell, targetTile);
+
+            hasControl = true;
         }
 
         private void SetCastingTiles(bool isOn)
@@ -119,71 +185,13 @@ namespace Scripts.Core
                 {
                     tile.SetCastingColor();
                 }
-
-                return;
             }
-
-            foreach (var tile in tilesInRange)
+            else
             {
-                tile.SetDefaultColor();
-            }
-        }
-
-        public void SetActiveSpell(Spell spell)
-        {
-            if (character.CurrentCharacterState == CharacterState.Casting)
-            {
-                SetCastingTiles(false);
-            }
-
-            activeSpell = spell;
-            GetTilesInRange(activeSpell.Range);
-
-            character.CurrentCharacterState = CharacterState.Casting;
-            SetCastingTiles(true);
-        }
-
-        private void GetTilesInRange(int range)
-        {
-            tilesInRange.Clear();
-            tilesInRange.AddRange(World.GetTilesWithinRange(character.Q, character.R, range));
-        }
-
-        private void UpdateTargetTile()
-        {
-            //if (eventsystem.current.ispointerovergameobject())
-            //{ return; }
-
-            // Check to see if over a tile and set the target tile
-            var ray = cam.ScreenPointToRay(Input.mousePosition);
-            var hits = Physics.RaycastAll(ray);
-
-            foreach (var hit in hits)
-            {
-                if (hit.transform.CompareTag("Tile"))
+                foreach (var tile in tilesInRange)
                 {
-                    targetTile = hit.transform.GetComponentInParent<WorldTile>();
-                    targetTile.SetHoverColor();
-
-                    if (previousTargetTile && previousTargetTile != targetTile)
-                    {
-                        previousTargetTile.ResetTileColor();
-                    }
-
-                    previousTargetTile = targetTile;
-                    return;
+                    tile.SetDefaultColor();
                 }
-            }
-
-            if (hits.Length < 1)
-            {
-                if (previousTargetTile)
-                {
-                    previousTargetTile.ResetTileColor();
-                }
-
-                targetTile = null;
-                previousTargetTile = null;
             }
         }
     }

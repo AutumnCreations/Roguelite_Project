@@ -12,14 +12,14 @@ namespace Scripts.Core
         [SerializeField] public World World;
         [SerializeField] private Vector3 stepOffset = new Vector3(0, .05f);
 
-        [Header("Player Movement")]
+        [Header("Character Movement")]
         [Tooltip("The speed at which the character model will move from their current position to the target position")]
         [SerializeField] private float stepSpeed = 1f;
         [SerializeField] private float rotationSpeed = 5f;
         [SerializeField] private Animator animator;
 
         public CharacterState CurrentCharacterState;
-        private Vector3 targetPosition;
+        private Vector3 _targetPosition;
 
         protected void Start()
         {
@@ -28,12 +28,13 @@ namespace Scripts.Core
             while (tile is null)
             {
                 tile = World.GetTileAt(random.Next(11) - 5, random.Next(11) - 5);
-                R = tile.Hex.R;
-                Q = tile.Hex.Q;
             }
 
+            R = tile.Hex.R;
+            Q = tile.Hex.Q;
+
             transform.position = tile.transform.position + stepOffset;
-            targetPosition = transform.position;
+            _targetPosition = transform.position;
 
             CurrentCharacterState = CharacterState.Idle;
         }
@@ -45,15 +46,15 @@ namespace Scripts.Core
 
         private void UpdateMovement()
         {
-            if (transform.position != targetPosition)
+            if (transform.position != _targetPosition)
             {
-                LookAtTarget(targetPosition);
+                LookAtTarget(_targetPosition);
                 var step = stepSpeed * Time.deltaTime;
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+                transform.position = Vector3.MoveTowards(transform.position, _targetPosition, step);
             }
             else
             {
-                animator.SetBool("isMoving", false);
+                animator.SetBool(AnimatorConstants.IsMoving, false);
                 if (CurrentCharacterState == CharacterState.Moving)
                 {
                     CurrentCharacterState = CharacterState.Idle;
@@ -85,17 +86,17 @@ namespace Scripts.Core
                 return;
             }
 
-            targetPosition = target.transform.position + stepOffset;
+            _targetPosition = target.transform.position + stepOffset;
             Q = target.Hex.Q;
             R = target.Hex.R;
-            animator.SetBool("isMoving", true);
+            animator.SetBool(AnimatorConstants.IsMoving, true);
             CurrentCharacterState = CharacterState.Moving;
         }
 
         public IEnumerator CastSpell(Spell activeSpell, WorldTile targetTile)
         {
             Instantiate(activeSpell.spellEffect, targetTile.transform.position + Vector3.up, targetTile.transform.rotation);
-            animator.SetTrigger("castSpell");
+            animator.SetTrigger(AnimatorConstants.CastSpell);
 
             yield return new WaitForSeconds(2.3f);
             CurrentCharacterState = CharacterState.Idle;

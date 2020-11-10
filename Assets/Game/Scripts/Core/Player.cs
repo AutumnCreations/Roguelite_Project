@@ -135,17 +135,14 @@ namespace Roguelite.Core
                 var currentTile = new Vector2(X, Z);
                 var tilePos = new Vector2(targetTile.X, targetTile.Z);
 
-                //print("Current Tile: " + currentTile);
-                //print("Next Tile: " + tilePos);
-
                 GetTilesInRange(.75f);
 
                 if (tilePos == currentTile || !tilesInRange.Contains(targetTile)) return;
 
                 MoveToTile(targetTile);
-
             }
-            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+
+            if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.UpArrow))
             {
                 Move(0, 1);
             }
@@ -153,13 +150,21 @@ namespace Roguelite.Core
             {
                 Move(-1, 0);
             }
-            else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            else if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.DownArrow))
             {
                 Move(0, -1);
             }
             else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
                 Move(1, 0);
+            }
+            else if (Input.GetKey(KeyCode.X))
+            {
+                Move(1, -1);
+            }
+            else if (Input.GetKey(KeyCode.Q))
+            {
+                Move(-1, 1);
             }
         }
 

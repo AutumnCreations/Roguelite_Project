@@ -4140,7 +4140,6 @@ MonoBehaviour:
   stepSpeed: 2
   rotationSpeed: 10
   animator: {fileID: 1475751676}
-  health: 0
   CurrentCharacterState: 0
 --- !u!1 &507323946
 GameObject:
@@ -6064,7 +6063,6 @@ MonoBehaviour:
   stepSpeed: 2
   rotationSpeed: 10
   animator: {fileID: 1304130952}
-  health: 0
   CurrentCharacterState: 0
 --- !u!1 &764846176
 GameObject:
@@ -6795,7 +6793,6 @@ MonoBehaviour:
   stepSpeed: 2
   rotationSpeed: 10
   animator: {fileID: 1137341744}
-  health: 0
   CurrentCharacterState: 0
 --- !u!1 &867313110
 GameObject:
@@ -7076,6 +7073,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 109152576}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &891008424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891008423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b716af9a2e85c2044857900294c4afda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
 --- !u!114 &891008427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13284,7 +13294,6 @@ MonoBehaviour:
   stepSpeed: 2
   rotationSpeed: 10
   animator: {fileID: 780229810}
-  health: 0
   CurrentCharacterState: 0
 --- !u!1 &1768618942
 GameObject:
@@ -15228,7 +15237,6 @@ MonoBehaviour:
   stepSpeed: 2
   rotationSpeed: 10
   animator: {fileID: 1179288730}
-  health: 0
   CurrentCharacterState: 0
 --- !u!4 &2074664500
 Transform:
@@ -18525,5 +18533,4 @@ MonoBehaviour:
   stepSpeed: 2
   rotationSpeed: 10
   animator: {fileID: 3766284645559023233}
-  health: 0
   CurrentCharacterState: 0

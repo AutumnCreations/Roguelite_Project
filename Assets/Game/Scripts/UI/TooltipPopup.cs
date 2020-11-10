@@ -67,12 +67,12 @@ namespace Roguelite.UI
         }
 
         //Change this to Enemy information, such as enemy name, type, etc., after Proof of Concept
-        public void DisplayCharacterInfo(Enemy enemy)
+        public void DisplayCharacterInfo(CharacterComponent characterComponent)
         {
             StringBuilder builder = new StringBuilder();
 
-            builder.Append("<size=35><color=#8f0d2b>").Append(enemy.name).Append("</color></size>").AppendLine();
-            builder.Append("<color=#8f0d2b>").Append(enemy.Health).Append("</color> Health").AppendLine();
+            builder.Append("<size=35><color=#8f0d2b>").Append(characterComponent.name).Append("</color></size>").AppendLine();
+            builder.Append("<color=#8f0d2b>").Append(characterComponent.Health).Append("</color> Health").AppendLine();
             infoText.text = builder.ToString();
 
             popupCanvasObject.SetActive(true);

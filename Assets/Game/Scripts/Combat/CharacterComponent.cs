@@ -3,12 +3,12 @@ using Roguelite.UI;
 
 namespace Roguelite.Combat
 {
-    public class Enemy : MonoBehaviour
+    public class CharacterComponent : MonoBehaviour
     {
-        [Header("Enemy Stats")]
+        [Header("Character Stats")]
         [SerializeField] private float health = 10f;
 
-        public float Health { get { return health; } }
+        public float Health => health;
 
         private TooltipPopup tooltip;
 

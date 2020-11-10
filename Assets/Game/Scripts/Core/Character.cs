@@ -17,11 +17,6 @@ namespace Roguelite.Core
         [SerializeField] private float rotationSpeed = 5f;
         [SerializeField] private Animator animator;
 
-        [Header("Character Stats")]
-        [SerializeField] private float health = 10f;
-
-        public float Health => health;
-
         public CharacterState CurrentCharacterState;
         private Vector3 targetPosition;
 

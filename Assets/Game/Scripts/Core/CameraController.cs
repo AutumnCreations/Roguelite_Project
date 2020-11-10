@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Roguelite.Core
+namespace Scripts.Core
 {
     public class CameraController : MonoBehaviour
     {

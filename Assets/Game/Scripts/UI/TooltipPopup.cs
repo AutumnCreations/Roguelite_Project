@@ -1,13 +1,11 @@
-﻿using Roguelite.Combat;
-using Roguelite.Core;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
+using Scripts.Combat;
+using Scripts.Items;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Roguelite.UI
+namespace Scripts.UI
 {
     public class TooltipPopup : MonoBehaviour
     {

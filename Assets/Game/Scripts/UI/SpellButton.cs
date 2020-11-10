@@ -1,9 +1,10 @@
-﻿using Roguelite.Core;
+﻿using Scripts.Core;
+using Scripts.Items;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Roguelite.UI
+namespace Scripts.UI
 {
     public class SpellButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {

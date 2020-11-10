@@ -1,7 +1,8 @@
 ﻿using System.Collections;
+using Scripts.Items;
 using UnityEngine;
 
-namespace Roguelite.Core
+namespace Scripts.Core
 {
     public class Character : MonoBehaviour
     {

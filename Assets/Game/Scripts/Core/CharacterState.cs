@@ -1,4 +1,4 @@
-﻿namespace Roguelite.Core
+﻿namespace Scripts.Core
 {
     public enum CharacterState
     {

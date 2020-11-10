@@ -1,13 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-[CreateAssetMenu]
-public class SpellType : ScriptableObject
+namespace Scripts.Items
 {
-    [SerializeField] private new string name;
-    [SerializeField] private Color textColour;
+    [CreateAssetMenu]
+    public class SpellType : ScriptableObject
+    {
+        [SerializeField] private new string name;
+        [SerializeField] private Color textColour;
 
-    public string Name { get { return name; } }
-    public Color TextColour { get { return textColour; } }
+        public string Name { get { return name; } }
+        public Color TextColour { get { return textColour; } }
+    }
 }

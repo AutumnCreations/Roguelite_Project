@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using Roguelite.UI;
+﻿using Scripts.UI;
+using UnityEngine;
 
-namespace Roguelite.Combat
+namespace Scripts.Combat
 {
     public class CharacterComponent : MonoBehaviour
     {

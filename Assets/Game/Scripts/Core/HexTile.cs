@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Roguelite.Core
+namespace Scripts.Core
 {
     public readonly struct HexTile : IEquatable<HexTile>
     {

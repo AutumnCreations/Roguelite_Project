@@ -1,8 +1,8 @@
 ﻿using System;
-using Roguelite.Core;
+using Scripts.Core;
 using UnityEngine;
 
-namespace Assets.Game.Scripts.Extensions
+namespace Scripts.Extensions
 {
     public static class WorldTileExtensions
     {

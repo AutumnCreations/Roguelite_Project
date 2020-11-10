@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using Assets.Game.Scripts.Extensions;
+using Scripts.Extensions;
+using Scripts.Items;
 using UnityEngine;
 
-namespace Roguelite.Core
+namespace Scripts.Core
 {
     public class Player : MonoBehaviour
     {

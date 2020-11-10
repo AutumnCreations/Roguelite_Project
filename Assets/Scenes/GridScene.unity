@@ -4072,6 +4072,7 @@ GameObject:
   - component: {fileID: 499703691}
   - component: {fileID: 499703690}
   - component: {fileID: 499703689}
+  - component: {fileID: 499703692}
   m_Layer: 8
   m_Name: Tainted Follower (1)
   m_TagString: Untagged
@@ -4141,6 +4142,19 @@ MonoBehaviour:
   rotationSpeed: 10
   animator: {fileID: 1475751676}
   CurrentCharacterState: 0
+--- !u!114 &499703692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499703687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45beb1c32f1ced94d904f2563f3adb02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  World: {fileID: 16281124}
 --- !u!1 &507323946
 GameObject:
   m_ObjectHideFlags: 0
@@ -5995,6 +6009,7 @@ GameObject:
   - component: {fileID: 763590724}
   - component: {fileID: 763590723}
   - component: {fileID: 763590722}
+  - component: {fileID: 763590725}
   m_Layer: 8
   m_Name: Putrid Preacher (2)
   m_TagString: Untagged
@@ -6064,6 +6079,19 @@ MonoBehaviour:
   rotationSpeed: 10
   animator: {fileID: 1304130952}
   CurrentCharacterState: 0
+--- !u!114 &763590725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763590720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45beb1c32f1ced94d904f2563f3adb02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  World: {fileID: 16281124}
 --- !u!1 &764846176
 GameObject:
   m_ObjectHideFlags: 0
@@ -6725,6 +6753,7 @@ GameObject:
   - component: {fileID: 860395279}
   - component: {fileID: 860395278}
   - component: {fileID: 860395277}
+  - component: {fileID: 860395280}
   m_Layer: 8
   m_Name: Putrid Preacher (1)
   m_TagString: Untagged
@@ -6794,6 +6823,19 @@ MonoBehaviour:
   rotationSpeed: 10
   animator: {fileID: 1137341744}
   CurrentCharacterState: 0
+--- !u!114 &860395280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860395275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45beb1c32f1ced94d904f2563f3adb02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  World: {fileID: 16281124}
 --- !u!1 &867313110
 GameObject:
   m_ObjectHideFlags: 0
@@ -7073,19 +7115,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 109152576}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &891008424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 891008423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b716af9a2e85c2044857900294c4afda, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 10
 --- !u!114 &891008427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7100,6 +7129,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   World: {fileID: 16281124}
   hasControl: 1
+--- !u!114 &891008428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891008423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b716af9a2e85c2044857900294c4afda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
 --- !u!1 &902470697
 GameObject:
   m_ObjectHideFlags: 0
@@ -13226,6 +13268,7 @@ GameObject:
   - component: {fileID: 1758922695}
   - component: {fileID: 1758922694}
   - component: {fileID: 1758922693}
+  - component: {fileID: 1758922696}
   m_Layer: 8
   m_Name: Tainted Follower (2)
   m_TagString: Untagged
@@ -13295,6 +13338,19 @@ MonoBehaviour:
   rotationSpeed: 10
   animator: {fileID: 780229810}
   CurrentCharacterState: 0
+--- !u!114 &1758922696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758922691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45beb1c32f1ced94d904f2563f3adb02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  World: {fileID: 16281124}
 --- !u!1 &1768618942
 GameObject:
   m_ObjectHideFlags: 0
@@ -15184,6 +15240,7 @@ GameObject:
   - component: {fileID: 2074664499}
   - component: {fileID: 2074664498}
   - component: {fileID: 2074664497}
+  - component: {fileID: 2074664501}
   m_Layer: 8
   m_Name: Putrid Preacher
   m_TagString: Untagged
@@ -15253,6 +15310,19 @@ Transform:
   m_Father: {fileID: 134014578}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 178.852, z: 0}
+--- !u!114 &2074664501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074664496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45beb1c32f1ced94d904f2563f3adb02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  World: {fileID: 16281124}
 --- !u!1 &2105845535
 GameObject:
   m_ObjectHideFlags: 0
@@ -15999,6 +16069,7 @@ GameObject:
   - component: {fileID: 6876269610213938479}
   - component: {fileID: 3935339654668407013}
   - component: {fileID: 2275093443623964637}
+  - component: {fileID: 2275093443623964638}
   m_Layer: 8
   m_Name: Tainted Follower
   m_TagString: Untagged
@@ -16019,6 +16090,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 4
+--- !u!114 &2275093443623964638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2275093443623964636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45beb1c32f1ced94d904f2563f3adb02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  World: {fileID: 16281124}
 --- !u!1 &2275093443677506147
 GameObject:
   m_ObjectHideFlags: 0

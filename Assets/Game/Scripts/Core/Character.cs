@@ -73,9 +73,9 @@ namespace Scripts.Core
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
 
-        public void Move(int horizontal, int vertical)
+        public void Move(int q, int r)
         {
-            var target = World.GetTileAt(Q + horizontal, R + vertical);
+            var target = World.GetTileAt(Q + q, R + r);
             MoveToTile(target);
         }
 

@@ -124,7 +124,7 @@ namespace Scripts.Core
                 var distance = targetTile.Hex.DistanceTo(character.Q, character.R);
                 if (distance == 1)
                 {
-                    character.MoveToTile(targetTile);
+                    StartCoroutine(character.MoveToTile(targetTile));
                 }
             }
             else if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.UpArrow))

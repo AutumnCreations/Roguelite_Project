@@ -39,29 +39,6 @@ namespace Scripts.Core
             CurrentCharacterState = CharacterState.Idle;
         }
 
-        protected void Update()
-        {
-            UpdateMovement();
-        }
-
-        private void UpdateMovement()
-        {
-            if (transform.position != _targetPosition)
-            {
-                LookAtTarget(_targetPosition);
-                var step = stepSpeed * Time.deltaTime;
-                transform.position = Vector3.MoveTowards(transform.position, _targetPosition, step);
-            }
-            else
-            {
-                animator.SetBool(AnimatorConstants.IsMoving, false);
-                if (CurrentCharacterState == CharacterState.Moving)
-                {
-                    CurrentCharacterState = CharacterState.Idle;
-                }
-            }
-        }
-
         public void LookAtTarget(Vector3 lookTarget)
         {
             var direction = lookTarget - transform.position;
@@ -73,17 +50,17 @@ namespace Scripts.Core
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
 
-        public void Move(int q, int r)
+        public void Move(int dq, int dr)
         {
-            var target = World.GetTileAt(Q + q, R + r);
-            MoveToTile(target);
+            var target = World.GetTileAt(Q + dq, R + dr);
+            StartCoroutine(MoveToTile(target));
         }
 
-        public void MoveToTile(WorldTile target)
+        public IEnumerator MoveToTile(WorldTile target)
         {
             if (target is null)
             {
-                return;
+                yield break;
             }
 
             _targetPosition = target.transform.position + stepOffset;
@@ -91,6 +68,20 @@ namespace Scripts.Core
             R = target.Hex.R;
             animator.SetBool(AnimatorConstants.IsMoving, true);
             CurrentCharacterState = CharacterState.Moving;
+
+            while (transform.position != _targetPosition)
+            {
+                LookAtTarget(_targetPosition);
+                var step = stepSpeed * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, _targetPosition, step);
+                yield return null;
+            }
+
+            animator.SetBool(AnimatorConstants.IsMoving, false);
+            if (CurrentCharacterState == CharacterState.Moving)
+            {
+                CurrentCharacterState = CharacterState.Idle;
+            }
         }
 
         public IEnumerator CastSpell(Spell activeSpell, WorldTile targetTile)

@@ -28,6 +28,8 @@ namespace Scripts.Core
                 {
                     Reset();
                 }
+
+                return;
             }
 
             if (Input.GetKeyDown(KeyCode.F5))

@@ -10,13 +10,6 @@ namespace Scripts.Core
 
         private Character _character;
 
-        private int _countdown;
-
-        private void Awake()
-        {
-            _countdown = Random.Next(30, 120);
-        }
-
         private void Start()
         {
             _character = transform.GetComponent<Character>();
@@ -29,7 +22,7 @@ namespace Scripts.Core
 
         private void Movement()
         {
-            if (_countdown-- > 0)
+            if (!_character.IsPlanningPhase || _character.Actions.Count > 0)
             {
                 return;
             }
@@ -40,8 +33,6 @@ namespace Scripts.Core
             {
                 _character.Move(q, r);
             }
-
-            _countdown = Random.Next(30, 120);
         }
     }
 }

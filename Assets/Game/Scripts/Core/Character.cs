@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using Scripts.Items;
 using UnityEngine;
 
@@ -20,6 +21,9 @@ namespace Scripts.Core
 
         public CharacterState CurrentCharacterState;
         private Vector3 _targetPosition;
+
+        public bool IsPlanningPhase { get; set; }
+        public List<TurnAction> Actions { get; } = new List<TurnAction>();
 
         protected void Start()
         {
@@ -52,11 +56,26 @@ namespace Scripts.Core
 
         public void Move(int dq, int dr)
         {
-            var target = World.GetTileAt(Q + dq, R + dr);
-            StartCoroutine(MoveToTile(target));
+            Actions.Add(new TurnAction(MoveRoutine(dq, dr)));
         }
 
-        public IEnumerator MoveToTile(WorldTile target)
+        public void MoveToTile(WorldTile targetTile)
+        {
+            Actions.Add(new TurnAction(MoveToTileRoutine(targetTile)));
+        }
+
+        public void CastSpell(Spell spell, WorldTile targetTile)
+        {
+            Actions.Add(new TurnAction(CastSpellRoutine(spell, targetTile)));
+        }
+
+        private IEnumerator MoveRoutine(int dq, int dr)
+        {
+            var target = World.GetTileAt(Q + dq, R + dr);
+            return MoveToTileRoutine(target);
+        }
+
+        private IEnumerator MoveToTileRoutine(WorldTile target)
         {
             if (target is null)
             {
@@ -84,7 +103,7 @@ namespace Scripts.Core
             }
         }
 
-        public IEnumerator CastSpell(Spell activeSpell, WorldTile targetTile)
+        private IEnumerator CastSpellRoutine(Spell activeSpell, WorldTile targetTile)
         {
             Instantiate(activeSpell.spellEffect, targetTile.transform.position + Vector3.up, targetTile.transform.rotation);
             animator.SetTrigger(AnimatorConstants.CastSpell);

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Scripts.Extensions;
 using Scripts.Items;
 using UnityEngine;
@@ -38,7 +36,7 @@ namespace Scripts.Core
                 hasControl = !hasControl;
             }
 
-            if (!hasControl)
+            if (!hasControl || !character.IsPlanningPhase)
             {
                 return;
             }
@@ -114,7 +112,7 @@ namespace Scripts.Core
 
         private void MovementInput()
         {
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 if (targetTile is null)
                 {
@@ -124,7 +122,7 @@ namespace Scripts.Core
                 var distance = targetTile.Hex.DistanceTo(character.Q, character.R);
                 if (distance == 1)
                 {
-                    StartCoroutine(character.MoveToTile(targetTile));
+                    character.MoveToTile(targetTile);
                 }
             }
             else if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.UpArrow))
@@ -164,16 +162,16 @@ namespace Scripts.Core
 
             if (Input.GetMouseButtonDown(0))
             {
-                StartCoroutine(CastSpell());
+                CastSpell();
             }
         }
 
-        private IEnumerator CastSpell()
+        private void CastSpell()
         {
             hasControl = false;
             SetCastingTiles(false);
 
-            yield return character.CastSpell(activeSpell, targetTile);
+            character.CastSpell(activeSpell, targetTile);
 
             hasControl = true;
         }

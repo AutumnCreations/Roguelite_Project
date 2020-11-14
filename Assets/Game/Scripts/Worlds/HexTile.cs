@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Scripts.Core
+namespace Scripts.Worlds
 {
     public readonly struct HexTile : IEquatable<HexTile>
     {

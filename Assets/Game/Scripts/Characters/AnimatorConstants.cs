@@ -1,4 +1,4 @@
-﻿namespace Scripts.Core
+﻿namespace Scripts.Characters
 {
     public class AnimatorConstants
     {

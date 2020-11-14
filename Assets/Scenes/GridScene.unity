@@ -389,7 +389,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41d1c95c94dd64d468b6b0ff24e6c61c, type: 3}
+  m_Script: {fileID: 11500000, guid: e9daa2f44fcac604c8ab8bceb6f474e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &24815757
@@ -1114,9 +1114,41 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 528949735, guid: f243acc291fcea740b6deef555c1d092, type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 891008428}
+    - target: {fileID: 528949735, guid: f243acc291fcea740b6deef555c1d092, type: 3}
       propertyPath: _radius
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 528949735, guid: f243acc291fcea740b6deef555c1d092, type: 3}
+      propertyPath: _enemies.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 528949735, guid: f243acc291fcea740b6deef555c1d092, type: 3}
+      propertyPath: _enemies.Array.data[0]
+      value: 
+      objectReference: {fileID: 2074664497}
+    - target: {fileID: 528949735, guid: f243acc291fcea740b6deef555c1d092, type: 3}
+      propertyPath: _enemies.Array.data[1]
+      value: 
+      objectReference: {fileID: 860395277}
+    - target: {fileID: 528949735, guid: f243acc291fcea740b6deef555c1d092, type: 3}
+      propertyPath: _enemies.Array.data[2]
+      value: 
+      objectReference: {fileID: 763590722}
+    - target: {fileID: 528949735, guid: f243acc291fcea740b6deef555c1d092, type: 3}
+      propertyPath: _enemies.Array.data[3]
+      value: 
+      objectReference: {fileID: 2275093443623964637}
+    - target: {fileID: 528949735, guid: f243acc291fcea740b6deef555c1d092, type: 3}
+      propertyPath: _enemies.Array.data[4]
+      value: 
+      objectReference: {fileID: 499703689}
+    - target: {fileID: 528949735, guid: f243acc291fcea740b6deef555c1d092, type: 3}
+      propertyPath: _enemies.Array.data[5]
+      value: 
+      objectReference: {fileID: 1758922693}
     - target: {fileID: 1616766764, guid: f243acc291fcea740b6deef555c1d092, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -1245,7 +1277,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4160108101499734127, guid: f243acc291fcea740b6deef555c1d092, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f243acc291fcea740b6deef555c1d092, type: 3}
 --- !u!1 &113858006
 GameObject:
@@ -2417,6 +2450,34 @@ Transform:
   m_Father: {fileID: 499703688}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &244529251 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4160108101499734120, guid: f243acc291fcea740b6deef555c1d092,
+    type: 3}
+  m_PrefabInstance: {fileID: 109152576}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &244529253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244529251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf468dfeb0bbc0c409d9354aaafa133c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTarget: {fileID: 891008424}
+  freeRoamTarget: {fileID: 622704384}
+  distanceFromTarget: 8.6
+  defaultY: 60
+  distanceMinMax: {x: 2, y: 15}
+  verticalMinMax: {x: 1, y: 85}
+  scrollSpeed: 6
+  rotationSpeed: 2.5
+  rotationSmoothTime: 0.1
+  followPlayer: 1
 --- !u!1 &252683522
 GameObject:
   m_ObjectHideFlags: 0
@@ -4107,6 +4168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b716af9a2e85c2044857900294c4afda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Q: 7
+  R: 2
   health: 4
 --- !u!136 &499703690
 CapsuleCollider:
@@ -4134,14 +4197,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619928068f8b73944a5336cb2271a715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Q: 0
-  R: 3
-  World: {fileID: 16281124}
-  stepOffset: {x: 0, y: 0.0525, z: 0}
   stepSpeed: 2
   rotationSpeed: 10
+  stepOffset: {x: 0, y: 0.0525, z: 0}
   animator: {fileID: 1475751676}
-  CurrentCharacterState: 0
+  CurrentCharacterAnimationState: 0
 --- !u!114 &499703692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4151,7 +4211,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 499703687}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45beb1c32f1ced94d904f2563f3adb02, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a2270ab0f91141488c14179366a8981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   World: {fileID: 16281124}
@@ -5114,6 +5174,12 @@ Transform:
   m_Father: {fileID: 1300507203}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &622704384 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1541410900, guid: f243acc291fcea740b6deef555c1d092,
+    type: 3}
+  m_PrefabInstance: {fileID: 109152576}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &633438239
 GameObject:
   m_ObjectHideFlags: 0
@@ -6044,6 +6110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b716af9a2e85c2044857900294c4afda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Q: 0
+  R: -4
   health: 2
 --- !u!136 &763590723
 CapsuleCollider:
@@ -6071,14 +6139,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619928068f8b73944a5336cb2271a715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Q: -3
-  R: 6
-  World: {fileID: 16281124}
-  stepOffset: {x: 0, y: 0.0525, z: 0}
   stepSpeed: 2
   rotationSpeed: 10
+  stepOffset: {x: 0, y: 0.0525, z: 0}
   animator: {fileID: 1304130952}
-  CurrentCharacterState: 0
+  CurrentCharacterAnimationState: 0
 --- !u!114 &763590725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6088,7 +6153,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 763590720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45beb1c32f1ced94d904f2563f3adb02, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a2270ab0f91141488c14179366a8981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   World: {fileID: 16281124}
@@ -6788,6 +6853,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b716af9a2e85c2044857900294c4afda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Q: -3
+  R: 6
   health: 2
 --- !u!136 &860395278
 CapsuleCollider:
@@ -6815,14 +6882,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619928068f8b73944a5336cb2271a715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Q: 0
-  R: -4
-  World: {fileID: 16281124}
-  stepOffset: {x: 0, y: 0.0525, z: 0}
   stepSpeed: 2
   rotationSpeed: 10
+  stepOffset: {x: 0, y: 0.0525, z: 0}
   animator: {fileID: 1137341744}
-  CurrentCharacterState: 0
+  CurrentCharacterAnimationState: 0
 --- !u!114 &860395280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6832,7 +6896,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 860395275}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45beb1c32f1ced94d904f2563f3adb02, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a2270ab0f91141488c14179366a8981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   World: {fileID: 16281124}
@@ -7115,18 +7179,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 109152576}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &891008426 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8738117901921216210, guid: f243acc291fcea740b6deef555c1d092,
+--- !u!4 &891008424 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4160108101747719205, guid: f243acc291fcea740b6deef555c1d092,
     type: 3}
   m_PrefabInstance: {fileID: 109152576}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 891008423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 619928068f8b73944a5336cb2271a715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &891008427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7136,7 +7194,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 891008423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ce2293eed1a31b4e88bc32c92fbb2ae, type: 3}
+  m_Script: {fileID: 11500000, guid: db56ceb407770334f8e128d9c90ea97c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   World: {fileID: 16281124}
@@ -7153,6 +7211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b716af9a2e85c2044857900294c4afda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Q: 0
+  R: 0
   health: 10
 --- !u!1 &902470697
 GameObject:
@@ -12700,14 +12760,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8abdf3170e7f24144baf405735449888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 891008426}
+  _player: {fileID: 891008427}
   _enemies:
-  - {fileID: 2074664499}
-  - {fileID: 860395279}
-  - {fileID: 763590724}
-  - {fileID: 6876269610213938479}
-  - {fileID: 499703691}
-  - {fileID: 1758922695}
+  - {fileID: 2074664501}
+  - {fileID: 860395280}
+  - {fileID: 763590725}
+  - {fileID: 2275093443623964638}
+  - {fileID: 499703692}
+  - {fileID: 1758922696}
 --- !u!1 &1659926101
 GameObject:
   m_ObjectHideFlags: 0
@@ -13372,6 +13432,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b716af9a2e85c2044857900294c4afda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Q: -5
+  R: 0
   health: 4
 --- !u!136 &1758922694
 CapsuleCollider:
@@ -13399,14 +13461,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619928068f8b73944a5336cb2271a715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Q: 6
-  R: -5
-  World: {fileID: 16281124}
-  stepOffset: {x: 0, y: 0.0525, z: 0}
   stepSpeed: 2
   rotationSpeed: 10
+  stepOffset: {x: 0, y: 0.0525, z: 0}
   animator: {fileID: 780229810}
-  CurrentCharacterState: 0
+  CurrentCharacterAnimationState: 0
 --- !u!114 &1758922696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13416,7 +13475,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1758922691}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45beb1c32f1ced94d904f2563f3adb02, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a2270ab0f91141488c14179366a8981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   World: {fileID: 16281124}
@@ -15329,6 +15388,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b716af9a2e85c2044857900294c4afda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Q: 0
+  R: 3
   health: 2
 --- !u!136 &2074664498
 CapsuleCollider:
@@ -15356,14 +15417,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619928068f8b73944a5336cb2271a715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Q: 7
-  R: 2
-  World: {fileID: 16281124}
-  stepOffset: {x: 0, y: 0.0525, z: 0}
   stepSpeed: 2
   rotationSpeed: 10
+  stepOffset: {x: 0, y: 0.0525, z: 0}
   animator: {fileID: 1179288730}
-  CurrentCharacterState: 0
+  CurrentCharacterAnimationState: 0
 --- !u!4 &2074664500
 Transform:
   m_ObjectHideFlags: 0
@@ -15388,7 +15446,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2074664496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45beb1c32f1ced94d904f2563f3adb02, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a2270ab0f91141488c14179366a8981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   World: {fileID: 16281124}
@@ -16158,6 +16216,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b716af9a2e85c2044857900294c4afda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Q: 6
+  R: -5
   health: 4
 --- !u!114 &2275093443623964638
 MonoBehaviour:
@@ -16168,7 +16228,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2275093443623964636}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45beb1c32f1ced94d904f2563f3adb02, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a2270ab0f91141488c14179366a8981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   World: {fileID: 16281124}
@@ -18679,11 +18739,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619928068f8b73944a5336cb2271a715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Q: -5
-  R: 0
-  World: {fileID: 16281124}
-  stepOffset: {x: 0, y: 0.0525, z: 0}
   stepSpeed: 2
   rotationSpeed: 10
+  stepOffset: {x: 0, y: 0.0525, z: 0}
   animator: {fileID: 3766284645559023233}
-  CurrentCharacterState: 0
+  CurrentCharacterAnimationState: 0

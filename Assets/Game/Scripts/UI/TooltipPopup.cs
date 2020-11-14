@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using Scripts.Combat;
+using Scripts.Characters;
 using Scripts.Items;
 using TMPro;
 using UnityEngine;
@@ -65,12 +65,12 @@ namespace Scripts.UI
         }
 
         //Change this to Enemy information, such as enemy name, type, etc., after Proof of Concept
-        public void DisplayCharacterInfo(CharacterComponent characterComponent)
+        public void DisplayCharacterInfo(Character character)
         {
             StringBuilder builder = new StringBuilder();
 
-            builder.Append("<size=35><color=#8f0d2b>").Append(characterComponent.name).Append("</color></size>").AppendLine();
-            builder.Append("<color=#8f0d2b>").Append(characterComponent.Health).Append("</color> Health").AppendLine();
+            builder.Append("<size=35><color=#8f0d2b>").Append(character.name).Append("</color></size>").AppendLine();
+            builder.Append("<color=#8f0d2b>").Append(character.Health).Append("</color> Health").AppendLine();
             infoText.text = builder.ToString();
 
             popupCanvasObject.SetActive(true);

@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace Scripts.Core
+namespace Scripts.Worlds
 {
     public class WorldTile : MonoBehaviour
     {
@@ -49,7 +49,6 @@ namespace Scripts.Core
             zCoordinate.text = $"{hex.S}";
         }
 
-        #region Colors
         public void UpdateColor(Color newColor)
         {
             currentColor = newColor;
@@ -77,6 +76,5 @@ namespace Scripts.Core
             lastColor = castingColor;
             UpdateColor(castingColor);
         }
-        #endregion
     }
 }

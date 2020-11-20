@@ -33,7 +33,7 @@ namespace Scripts.Items
             builder.Append(Description).AppendLine();
             builder.Append("AP: ").Append(ActionPointCost).AppendLine();
             builder.Append("Damage: ").Append(Damage).AppendLine();
-            builder.Append("Range: ").Append(Damage).AppendLine();
+            builder.Append("Range: ").Append(Range).AppendLine();
             builder.Append("Cooldown: ").Append(Cooldown).Append(" Turn(s)").AppendLine();
             builder.Append("<i>" + FlavorText + "</i>");
 

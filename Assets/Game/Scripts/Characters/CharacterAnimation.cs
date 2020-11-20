@@ -53,7 +53,9 @@ namespace Scripts.Characters
         {
             CurrentCharacterAnimationState = CharacterAnimationState.Casting;
 
-            Instantiate(activeSpell.spellEffect, targetTile.transform.position + Vector3.up, targetTile.transform.rotation);
+            var newSpell = Instantiate(activeSpell.spellEffect, targetTile.transform.position + Vector3.up, targetTile.transform.rotation);
+            Destroy(newSpell, newSpell.GetComponent<ParticleSystem>().duration);
+
             animator.SetTrigger(AnimatorConstants.CastSpell);
 
             var endOfAnimation = Time.time + 2.3f;

@@ -5,6 +5,7 @@ using Scripts.Items;
 using Scripts.Turns.Actions;
 using Scripts.Worlds;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Scripts.Control
 {
@@ -59,8 +60,9 @@ namespace Scripts.Control
 
         public void SetActiveSpell(Spell spell)
         {
-            if (activeSpell is { } previous)
+            if (!(activeSpell is null))
             {
+                var previous = activeSpell;
                 ShowSpellRange(false);
                 spellRange.Clear();
                 activeSpell = null;
@@ -84,6 +86,18 @@ namespace Scripts.Control
 
         private void UpdateTargetTile()
         {
+            if (MouseInputUIBlocker.BlockedByUI)
+            {
+                if (previousTargetTile)
+                {
+                    previousTargetTile.ResetTileColor();
+                }
+
+                targetTile = null;
+                previousTargetTile = null;
+                return;
+            }
+
             // Check to see if over a tile and set the target tile
             var ray = cam.ScreenPointToRay(Input.mousePosition);
             var hits = Physics.RaycastAll(ray);
@@ -123,7 +137,7 @@ namespace Scripts.Control
 
             if (Input.GetMouseButtonDown(0))
             {
-                if (targetTile is { })
+                if (targetTile)
                 {
                     if (activeSpell is null)
                     {

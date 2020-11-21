@@ -15,9 +15,28 @@ namespace Scripts.Turns.Actions
             _tile = tile;
         }
 
-        protected override IEnumerator ActInternal()
+        public override void Move()
         {
-            return _character.MoveRoutine(_tile);
+            if (_tile is null)
+            {
+                return;
+            }
+
+            _character.Q = _tile.Hex.Q;
+            _character.R = _tile.Hex.R;
+            _tile.occupyingObject = _character.gameObject;
+
+            if (_character.lastTile)
+            {
+                _character.lastTile.occupyingObject = null;
+            }
+
+            _character.lastTile = _tile;
+        }
+
+        protected override IEnumerator AnimationInternal()
+        {
+            return _character.Animation.MoveRoutine(_tile);
         }
     }
 }

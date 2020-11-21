@@ -54,7 +54,7 @@ namespace Scripts.Characters
             CurrentCharacterAnimationState = CharacterAnimationState.Casting;
 
             var newSpell = Instantiate(activeSpell.spellEffect, targetTile.transform.position + Vector3.up, targetTile.transform.rotation);
-            Destroy(newSpell, newSpell.GetComponent<ParticleSystem>().duration);
+            Destroy(newSpell, newSpell.GetComponent<ParticleSystem>().main.duration);
 
             animator.SetTrigger(AnimatorConstants.CastSpell);
 
@@ -71,7 +71,6 @@ namespace Scripts.Characters
         public IEnumerator TakeDamageRoutine()
         {
             animator.SetTrigger(AnimatorConstants.TakeDamage);
-            print(gameObject.name + " took damage.");
 
             var endOfAnimation = Time.time + 2.3f;
             while (Time.time < endOfAnimation)

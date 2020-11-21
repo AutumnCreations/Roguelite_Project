@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Scripts.Control;
@@ -12,64 +12,65 @@ namespace Scripts.Turns
         [SerializeField] private Player _player;
         [SerializeField] private List<Enemy> _enemies;
 
-        private TurnState _state;
+        private bool _isPlanningPhase;
         private List<TurnAction> _currentTurn;
 
         private void Awake()
         {
-            _state = TurnState.Plan;
+            _isPlanningPhase = true;
             _currentTurn = new List<TurnAction>();
         }
 
-        private void Start()
+        private void FixedUpdate()
         {
-            StartCoroutine(Execute());
+            if (_isPlanningPhase)
+            {
+                OnAction();
+            }
+            else
+            {
+                Wait();
+            }
         }
 
-        private void Update()
+        private void OnAction()
         {
-            if (_state != TurnState.Plan)
-            {
-                return;
-            }
-
             var playerAction = _player.NextAction();
             if (playerAction == null)
             {
                 return;
             }
 
+            _isPlanningPhase = false;
+
             _currentTurn.Add(playerAction);
             _currentTurn.AddRange(_enemies.Select(e => e.NextAction()));
 
-            _state = TurnState.Ready;
+            foreach (var action in _currentTurn)
+            {
+                action.Move();
+            }
+
+            foreach (var action in _currentTurn)
+            {
+                action.CastSpell();
+            }
+
+            foreach (var action in _currentTurn)
+            {
+                StartCoroutine(action.Animation());
+            }
         }
 
-        private IEnumerator Execute()
+        private void Wait()
         {
-            while (true)
+            if (_currentTurn.Any(r => !r.Completed))
             {
-                if (_state != TurnState.Ready)
-                {
-                    yield return null;
-                    continue;
-                }
-
-                _state = TurnState.Act;
-
-                foreach (var action in _currentTurn)
-                {
-                    StartCoroutine(action.Act());
-                }
-
-                while (!_currentTurn.All(r => r.Completed))
-                {
-                    yield return null;
-                }
-
-                _currentTurn.Clear();
-                _state = TurnState.Plan;
+                return;
             }
+
+            _currentTurn.Clear();
+            _isPlanningPhase = true;
         }
     }
 }

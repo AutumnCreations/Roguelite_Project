@@ -4,7 +4,7 @@ namespace Scripts.Turns.Actions
 {
     public class NoAction : TurnAction
     {
-        protected override IEnumerator ActInternal()
+        protected override IEnumerator AnimationInternal()
         {
             yield break;
         }

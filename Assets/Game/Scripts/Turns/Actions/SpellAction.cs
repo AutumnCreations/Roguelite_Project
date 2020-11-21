@@ -11,6 +11,8 @@ namespace Scripts.Turns.Actions
         private readonly Spell _activeSpell;
         private readonly WorldTile _targetTile;
 
+        private Character _target;
+
         public SpellAction(Character character, Spell activeSpell, WorldTile targetTile)
         {
             _character = character;
@@ -18,9 +20,39 @@ namespace Scripts.Turns.Actions
             _targetTile = targetTile;
         }
 
-        protected override IEnumerator ActInternal()
+        public override void CastSpell()
         {
-            return _character.CastSpellRoutine(_activeSpell, _targetTile);
+            if (!_targetTile.occupyingObject)
+            {
+                return;
+            }
+
+            _target = _targetTile.occupyingObject.GetComponent<Character>();
+            if (_target)
+            {
+                _target.Health -= _activeSpell.Damage;
+            }
+        }
+
+        protected override IEnumerator AnimationInternal()
+        {
+            var r1 = _target?.Animation.TakeDamageRoutine();
+            var r2 = _character.Animation.CastSpellRoutine(_activeSpell, _targetTile);
+
+            while (true)
+            {
+                var damage = r1?.MoveNext() == true;
+                var spell = r2.MoveNext();
+
+                if (damage || spell)
+                {
+                    yield return null;
+                }
+                else
+                {
+                    yield break;
+                }
+            }
         }
     }
 }

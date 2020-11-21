@@ -60,7 +60,7 @@ namespace Scripts.Worlds
                         }
 
                         var worldTile = GetTileAt(q + x, r + y);
-                        if (worldTile is { })
+                        if (worldTile != null)
                         {
                             yield return worldTile;
                         }
@@ -88,7 +88,7 @@ namespace Scripts.Worlds
             foreach (var worldTile in worldTiles)
             {
                 var character = GetCharacterAt(worldTile.Hex);
-                if (character is { })
+                if (character != null)
                 {
                     yield return character;
                 }

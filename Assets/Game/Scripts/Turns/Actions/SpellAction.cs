@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using Scripts.Characters;
 using Scripts.Items;
 using Scripts.Worlds;
@@ -36,15 +37,15 @@ namespace Scripts.Turns.Actions
 
         protected override IEnumerator AnimationInternal()
         {
-            var r1 = _target?.Animation.TakeDamageRoutine();
-            var r2 = _character.Animation.CastSpellRoutine(_activeSpell, _targetTile);
+            var senderAnimation = _character.Animation.CastSpellRoutine(_activeSpell, _targetTile);
+            var targetAnimation = GetTargetAnimation();
 
             while (true)
             {
-                var damage = r1?.MoveNext() == true;
-                var spell = r2.MoveNext();
+                var spell = senderAnimation.MoveNext();
+                var damage = targetAnimation?.MoveNext() == true;
 
-                if (damage || spell)
+                if (spell || damage)
                 {
                     yield return null;
                 }
@@ -52,6 +53,24 @@ namespace Scripts.Turns.Actions
                 {
                     yield break;
                 }
+            }
+        }
+
+        private IEnumerator GetTargetAnimation()
+        {
+            if (!_target)
+            {
+                return null;
+            }
+
+            if (_target.Stats.Health > 0)
+            {
+                return _target?.Animation.TakeDamageRoutine();
+            }
+            else
+            {
+                // todo: death animation
+                return Enumerable.Empty<int>().GetEnumerator();
             }
         }
     }

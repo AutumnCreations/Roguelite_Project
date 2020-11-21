@@ -3,9 +3,9 @@ using Scripts.Characters;
 using Scripts.Extensions;
 using Scripts.Items;
 using Scripts.Turns.Actions;
+using Scripts.UI;
 using Scripts.Worlds;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Scripts.Control
 {
@@ -81,7 +81,7 @@ namespace Scripts.Control
         private void GetTilesInRange(int range)
         {
             spellRange.Clear();
-            spellRange.AddRange(World.GetTilesWithinRange(_character.Q, _character.R, range));
+            spellRange.AddRange(World.GetTilesWithinRange(_character.Stats.Q, _character.Stats.R, range));
         }
 
         private void UpdateTargetTile()
@@ -141,7 +141,7 @@ namespace Scripts.Control
                 {
                     if (activeSpell is null)
                     {
-                        var distance = targetTile.Hex.DistanceTo(_character.Q, _character.R);
+                        var distance = targetTile.Hex.DistanceTo(_character.Stats.Q, _character.Stats.R);
                         action = distance == 1
                             ? new MoveAction(_character, targetTile)
                             : null;
@@ -186,7 +186,7 @@ namespace Scripts.Control
 
         private MoveAction MoveAction(int q, int r)
         {
-            var tile = World.GetTileAt(_character.Q + q, _character.R + r);
+            var tile = World.GetTileAt(_character.Stats.Q + q, _character.Stats.R + r);
             return tile is null
                 ? null
                 : new MoveAction(_character, tile);

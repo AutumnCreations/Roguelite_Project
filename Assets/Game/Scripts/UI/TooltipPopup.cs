@@ -65,7 +65,7 @@ namespace Scripts.UI
         }
 
         //Change this to Enemy information, such as enemy name, type, etc., after Proof of Concept
-        public void DisplayCharacterInfo(Character character)
+        public void DisplayCharacterInfo(CharacterStats character)
         {
             StringBuilder builder = new StringBuilder();
 

@@ -18,7 +18,7 @@ namespace Scripts.Worlds
 
         [Header("Characters")]
         [SerializeField] private Character _player;
-        [SerializeField] private List<Character> _enemies;
+        [SerializeField] private EnemyContainer _enemies;
 
         private readonly Dictionary<HexTile, WorldTile> _tiles = new Dictionary<HexTile, WorldTile>();
         private readonly Dictionary<HexTile, Character> _characters = new Dictionary<HexTile, Character>();
@@ -26,6 +26,10 @@ namespace Scripts.Worlds
         private void Awake()
         {
             GenerateMap();
+        }
+
+        private void Start()
+        {
             PlaceCharacters();
         }
 
@@ -121,11 +125,11 @@ namespace Scripts.Worlds
         private void PlaceCharacters()
         {
             var random = new System.Random();
-            var characters = new[] { _player }.Concat(_enemies);
+            var characters = new[] { _player }.Concat(_enemies.Characters.Select(e => e.Character));
             foreach (var character in characters)
             {
-                var q = character.Q;
-                var r = character.R;
+                var q = character.Stats.Q;
+                var r = character.Stats.R;
 
                 while (true)
                 {
@@ -138,10 +142,10 @@ namespace Scripts.Worlds
                     }
 
                     tile.occupyingObject = character.gameObject;
-                    character.lastTile = tile;
+                    character.Stats.lastTile = tile;
                     character.transform.position = tile.transform.position + stepOffset;
-                    character.Q = q;
-                    character.R = r;
+                    character.Stats.Q = q;
+                    character.Stats.R = r;
                     break;
                 }
             }

@@ -5,18 +5,17 @@ using UnityEngine;
 
 namespace Scripts.Control
 {
-    [RequireComponent(typeof(Character))]
     public class Enemy : AbstractControl
     {
         private static readonly System.Random Random = new System.Random();
 
         [SerializeField] public World World;
 
-        private Character _character;
+        public Character Character { get; private set; }
 
-        private void Start()
+        private void Awake()
         {
-            _character = transform.GetComponent<Character>();
+            Character = transform.GetComponent<Character>();
         }
 
         public override TurnAction NextAction()
@@ -33,8 +32,8 @@ namespace Scripts.Control
 
         private MoveAction MoveAction(int q, int r)
         {
-            var tile = World.GetTileAt(_character.Q + q, _character.R + r);
-            return new MoveAction(_character, tile);
+            var tile = World.GetTileAt(Character.Stats.Q + q, Character.Stats.R + r);
+            return new MoveAction(Character, tile);
         }
     }
 }

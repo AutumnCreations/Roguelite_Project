@@ -1,48 +1,32 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Scripts.Items;
-using Scripts.UI;
-using Scripts.Worlds;
+﻿using Scripts.UI;
 using UnityEngine;
 
 namespace Scripts.Characters
 {
     [RequireComponent(typeof(CharacterAnimation))]
+    [RequireComponent(typeof(CharacterStats))]
     public class Character : MonoBehaviour
     {
-        [Header("Location")]
-        public int Q;
-        public int R;
-        public WorldTile lastTile = null;
+        private TooltipPopup _tooltip;
 
-        [Header("Combat")]
-        [SerializeField] private float health = 10f;
-        [SerializeField] public List<Spell> spells;
+        public CharacterAnimation Animation { get; private set; }
+        public CharacterStats Stats { get; private set; }
 
-        public float Health
-        {
-            get => health;
-            set => health = value;
-        }
-
-        public CharacterAnimation Animation;
-        private TooltipPopup tooltip;
-
-        private void Start()
+        private void Awake()
         {
             Animation = transform.GetComponent<CharacterAnimation>();
-            tooltip = FindObjectOfType<TooltipPopup>();
+            Stats = transform.GetComponent<CharacterStats>();
+            _tooltip = FindObjectOfType<TooltipPopup>();
         }
 
         private void OnMouseOver()
         {
-            tooltip.DisplayCharacterInfo(this);
+            _tooltip.DisplayCharacterInfo(Stats);
         }
 
         private void OnMouseExit()
         {
-            tooltip.HideInfo();
+            _tooltip.HideInfo();
         }
     }
 }

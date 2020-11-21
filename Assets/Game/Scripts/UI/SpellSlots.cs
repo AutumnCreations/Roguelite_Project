@@ -1,6 +1,5 @@
 using Scripts.Characters;
 using Scripts.Control;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,18 +11,17 @@ namespace Scripts.UI
         [SerializeField] private SpellButton spellButtonReference;
         [SerializeField] private List<SpellButton> spellButtons;
 
-        private void Awake()
+        private void Start()
         {
             var character = player.GetComponent<Character>();
-            var slots = character.spells.Count;
-            for (int i = 0; i < slots; i++)
+
+            foreach (var spell in character.Stats.spells)
             {
                 var spellButton = Instantiate(spellButtonReference, gameObject.transform);
-                spellButton.spell = character.spells[i];
+                spellButton.spell = spell;
                 spellButton.player = player;
                 spellButtons.Add(spellButton);
             }
         }
-
     }
 }

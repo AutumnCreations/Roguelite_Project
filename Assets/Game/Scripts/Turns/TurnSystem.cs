@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Scripts.Control;
 using Scripts.Turns.Actions;
+using Scripts.Worlds;
 using UnityEngine;
 
 namespace Scripts.Turns
@@ -10,7 +11,7 @@ namespace Scripts.Turns
     public class TurnSystem : MonoBehaviour
     {
         [SerializeField] private Player _player;
-        [SerializeField] private List<Enemy> _enemies;
+        [SerializeField] private EnemyContainer _enemies;
 
         private bool _isPlanningPhase;
         private List<TurnAction> _currentTurn;
@@ -44,7 +45,7 @@ namespace Scripts.Turns
             _isPlanningPhase = false;
 
             _currentTurn.Add(playerAction);
-            _currentTurn.AddRange(_enemies.Select(e => e.NextAction()));
+            _currentTurn.AddRange(_enemies.Characters.Select(e => e.NextAction()));
 
             foreach (var action in _currentTurn)
             {

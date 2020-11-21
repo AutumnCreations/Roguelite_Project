@@ -40,6 +40,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4683650884074524290}
+  - component: {fileID: 1217791402254425997}
+  - component: {fileID: 7414930409192019971}
   - component: {fileID: 1873777781}
   - component: {fileID: 7633680910855360959}
   m_Layer: 0
@@ -64,6 +66,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1217791402254425997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4683650884074524294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b716af9a2e85c2044857900294c4afda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7414930409192019971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4683650884074524294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b75775e9d314ae49b2d1977495258d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Q: 0
+  R: 0
+  lastTile: {fileID: 0}
+  health: 10
+  spells: []
 --- !u!114 &1873777781
 MonoBehaviour:
   m_ObjectHideFlags: 0

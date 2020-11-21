@@ -22,16 +22,16 @@ namespace Scripts.Turns.Actions
                 return;
             }
 
-            _character.Q = _tile.Hex.Q;
-            _character.R = _tile.Hex.R;
+            _character.Stats.Q = _tile.Hex.Q;
+            _character.Stats.R = _tile.Hex.R;
             _tile.occupyingObject = _character.gameObject;
 
-            if (_character.lastTile)
+            if (_character.Stats.lastTile)
             {
-                _character.lastTile.occupyingObject = null;
+                _character.Stats.lastTile.occupyingObject = null;
             }
 
-            _character.lastTile = _tile;
+            _character.Stats.lastTile = _tile;
         }
 
         protected override IEnumerator AnimationInternal()

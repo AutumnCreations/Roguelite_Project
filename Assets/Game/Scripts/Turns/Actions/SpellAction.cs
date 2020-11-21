@@ -30,7 +30,7 @@ namespace Scripts.Turns.Actions
             _target = _targetTile.occupyingObject.GetComponent<Character>();
             if (_target)
             {
-                _target.Health -= _activeSpell.Damage;
+                _target.Stats.Health -= _activeSpell.Damage;
             }
         }
 

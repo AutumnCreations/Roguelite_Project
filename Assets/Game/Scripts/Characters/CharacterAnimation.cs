@@ -17,10 +17,14 @@ namespace Scripts.Characters
         public CharacterAnimationState CurrentCharacterAnimationState;
         private Vector3 _targetPosition;
 
-        protected void Start()
+        private void Awake()
+        {
+            CurrentCharacterAnimationState = CharacterAnimationState.Idle;
+        }
+
+        private void Start()
         {
             _targetPosition = transform.position;
-            CurrentCharacterAnimationState = CharacterAnimationState.Idle;
         }
 
         public IEnumerator MoveRoutine(WorldTile target)

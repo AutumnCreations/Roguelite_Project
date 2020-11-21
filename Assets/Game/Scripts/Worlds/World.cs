@@ -137,6 +137,8 @@ namespace Scripts.Worlds
                         continue;
                     }
 
+                    tile.occupyingObject = character.gameObject;
+                    character.lastTile = tile;
                     character.transform.position = tile.transform.position + stepOffset;
                     character.Q = q;
                     character.R = r;

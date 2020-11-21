@@ -13,6 +13,8 @@ namespace Scripts.Worlds
         [SerializeField] public TextMeshProUGUI yCoordinate;
         [SerializeField] public TextMeshProUGUI zCoordinate;
 
+        [SerializeField] public GameObject occupyingObject;
+
         Material tileMaterial = null;
 
         Color currentColor;

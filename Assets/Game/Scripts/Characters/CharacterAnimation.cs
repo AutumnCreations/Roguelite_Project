@@ -68,6 +68,18 @@ namespace Scripts.Characters
             CurrentCharacterAnimationState = CharacterAnimationState.Idle;
         }
 
+        public IEnumerator TakeDamageRoutine()
+        {
+            animator.SetTrigger(AnimatorConstants.TakeDamage);
+            print(gameObject.name + " took damage.");
+
+            var endOfAnimation = Time.time + 2.3f;
+            while (Time.time < endOfAnimation)
+            {
+                yield return null;
+            }
+        }
+
         public void LookAtTarget(Vector3 lookTarget)
         {
             var direction = lookTarget - transform.position;

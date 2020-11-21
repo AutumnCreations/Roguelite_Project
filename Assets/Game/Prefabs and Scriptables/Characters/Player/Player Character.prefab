@@ -58,7 +58,7 @@ Transform:
   m_GameObject: {fileID: 4683650884074524294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children:
   - {fileID: 4683650883464392455}
   m_Father: {fileID: 0}
@@ -76,17 +76,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619928068f8b73944a5336cb2271a715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  X: 0
-  Z: 0
-  World: {fileID: 0}
-  stepOffset: {x: 0, y: 0.0525, z: 0}
   stepSpeed: 2
   rotationSpeed: 10
-  hasControl: 1
+  stepOffset: {x: 0, y: 0.0525, z: 0}
   animator: {fileID: 7721963796767422427}
-  isEnemy: 0
-  health: 10
-  spellRangeVisualizer: 5
+  CurrentCharacterAnimationState: 0
 --- !u!136 &7633680910855360959
 CapsuleCollider:
   m_ObjectHideFlags: 0

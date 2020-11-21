@@ -376,7 +376,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Q: 0
   R: 0
+  lastTile: {fileID: 0}
   health: 10
+  spells:
+  - {fileID: 11400000, guid: d047874f8324419468b9fd84af7e8691, type: 2}
+  - {fileID: 11400000, guid: 384ee6bd82ac95841b400d0d80351907, type: 2}
+  - {fileID: 11400000, guid: 044a4a6d1b566234c8e2e9aa0e80ed35, type: 2}
 --- !u!1001 &1507838339405712682
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -677,6 +682,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2216274214822033318, guid: 8db3d59bb3f60d042a82eaf63389fe01,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 891008427}
     - target: {fileID: 8328458048486427528, guid: 8db3d59bb3f60d042a82eaf63389fe01,
         type: 3}
       propertyPath: m_Name

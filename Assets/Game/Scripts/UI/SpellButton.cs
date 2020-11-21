@@ -8,20 +8,17 @@ namespace Scripts.UI
 {
     public class SpellButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        [SerializeField] private Spell spell;
-
-        private Player player;
+        public Spell spell;
+        public Player player;
         private TooltipPopup tooltipPopup;
         private Image image;
 
-        private void Awake()
+
+        private void Start()
         {
             image = GetComponent<Image>();
             image.sprite = spell.Thumbnail;
             tooltipPopup = FindObjectOfType<TooltipPopup>();
-
-            //Using tag reference to find player to avoid conflicts with enemy test dummies
-            player = GameObject.FindWithTag("Player").GetComponent<Player>();
         }
 
         public void OnPointerEnter(PointerEventData eventData)

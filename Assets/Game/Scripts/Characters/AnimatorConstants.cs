@@ -4,5 +4,6 @@
     {
         internal const string IsMoving = "isMoving";
         internal const string CastSpell = "castSpell";
+        internal const string TakeDamage = "takeDamage";
     }
 }

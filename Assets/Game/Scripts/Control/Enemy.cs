@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Scripts.Extensions;
 using Scripts.Items;
 using Scripts.Turns.Actions;
 using Scripts.Worlds;
@@ -32,15 +33,19 @@ namespace Scripts.Control
                 return new NoAction();
             }
 
-            var targets = World.GetCharactersWithinRange(Character.Stats.Q, Character.Stats.R, spell.Range);
-            var target = targets.FirstOrDefault();
-            if (target && target != Character)
+            var target = World.GetCharactersWithinRange(Character.Stats.Q, Character.Stats.R, spell.Range)
+                .Where(c => c != Character)
+                .Select(c => c.CurrentTile)
+                .Shuffle()
+                .FirstOrDefault();
+            if (target)
             {
-                return SpellAction(spell, target.CurrentTile);
+                return SpellAction(spell, target);
             }
 
-            var targetTiles = World.GetTilesWithinRange(Character.Stats.Q, Character.Stats.R, spell.Range);
-            var targetTile = targetTiles.FirstOrDefault();
+            var targetTile = World.GetTilesWithinRange(Character.Stats.Q, Character.Stats.R, spell.Range)
+                .Shuffle()
+                .FirstOrDefault();
             if (targetTile)
             {
                 return SpellAction(spell, targetTile);

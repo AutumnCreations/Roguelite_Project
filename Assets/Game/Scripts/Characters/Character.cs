@@ -35,7 +35,7 @@ namespace Scripts.Characters
 
         public void MoveTo(WorldTile tile)
         {
-            if (tile is null)
+            if (tile is null || tile.occupyingObject)
             {
                 return;
             }

@@ -14,6 +14,11 @@ namespace Scripts.Control
 
         public override TurnAction NextAction()
         {
+            if (Character.Stats.Health <= 0)
+            {
+                return new NoAction();
+            }
+
             var q = Random.Next(3) - 1;
             var r = Random.Next(3) - 1;
             if (q != r)

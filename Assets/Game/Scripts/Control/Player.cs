@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Scripts.Characters;
 using Scripts.Extensions;
 using Scripts.Items;
 using Scripts.Turns.Actions;
@@ -16,8 +15,6 @@ namespace Scripts.Control
         [Tooltip("Related to camera controls")]
         [SerializeField] private bool hasControl = true;
 
-        private Character _character;
-
         private UnityEngine.Camera cam;
         private List<WorldTile> spellRange;
 
@@ -29,7 +26,6 @@ namespace Scripts.Control
 
         private void Start()
         {
-            _character = transform.GetComponent<Character>();
             cam = FindObjectOfType<UnityEngine.Camera>();
             spellRange = new List<WorldTile>();
         }
@@ -81,7 +77,7 @@ namespace Scripts.Control
         private void GetTilesInRange(int range)
         {
             spellRange.Clear();
-            spellRange.AddRange(World.GetTilesWithinRange(_character.Stats.Q, _character.Stats.R, range));
+            spellRange.AddRange(World.GetTilesWithinRange(Character.Stats.Q, Character.Stats.R, range));
         }
 
         private void UpdateTargetTile()
@@ -141,9 +137,9 @@ namespace Scripts.Control
                 {
                     if (activeSpell is null)
                     {
-                        var distance = targetTile.Hex.DistanceTo(_character.Stats.Q, _character.Stats.R);
+                        var distance = targetTile.Hex.DistanceTo(Character.Stats.Q, Character.Stats.R);
                         action = distance == 1
-                            ? new MoveAction(_character, targetTile)
+                            ? new MoveAction(Character, targetTile)
                             : null;
                     }
                     else if (spellRange.Contains(targetTile))
@@ -186,15 +182,15 @@ namespace Scripts.Control
 
         private MoveAction MoveAction(int q, int r)
         {
-            var tile = World.GetTileAt(_character.Stats.Q + q, _character.Stats.R + r);
+            var tile = World.GetTileAt(Character.Stats.Q + q, Character.Stats.R + r);
             return tile is null
                 ? null
-                : new MoveAction(_character, tile);
+                : new MoveAction(Character, tile);
         }
 
         private SpellAction CastSpell()
         {
-            var action = new SpellAction(_character, activeSpell, targetTile);
+            var action = new SpellAction(Character, activeSpell, targetTile);
 
             ShowSpellRange(false);
             spellRange.Clear();

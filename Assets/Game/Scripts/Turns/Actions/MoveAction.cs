@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using Scripts.Characters;
+﻿using Scripts.Characters;
 using Scripts.Worlds;
 
 namespace Scripts.Turns.Actions
@@ -18,11 +17,6 @@ namespace Scripts.Turns.Actions
         public override void Move()
         {
             _character.MoveTo(_tile);
-        }
-
-        protected override IEnumerator AnimationInternal()
-        {
-            return _character.Animation.MoveRoutine(_tile);
         }
     }
 }

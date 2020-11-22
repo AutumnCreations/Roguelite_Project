@@ -5,5 +5,6 @@
         Idle,
         Moving,
         Casting,
+        TakingDamage
     }
 }

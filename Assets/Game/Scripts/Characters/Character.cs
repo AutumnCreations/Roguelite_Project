@@ -1,4 +1,5 @@
-﻿using Scripts.UI;
+﻿using Scripts.Items;
+using Scripts.UI;
 using Scripts.Worlds;
 using UnityEngine;
 
@@ -49,11 +50,38 @@ namespace Scripts.Characters
             }
 
             CurrentTile = tile;
+
+            Animation.Move(tile);
+        }
+
+        public void CastSpell(Spell spell, WorldTile targetTile)
+        {
+            Animation.CastSpell(spell, targetTile);
+
+            if (!targetTile.occupyingObject)
+            {
+                return;
+            }
+
+            var target = targetTile.occupyingObject.GetComponent<Character>();
+            if (target)
+            {
+                target.TakeDamage(spell.Damage);
+            }
         }
 
         public void TakeDamage(int amount)
         {
             Stats.Health -= amount;
+
+            if (Stats.Health > 0)
+            {
+                Animation.TakeDamage();
+            }
+            else
+            {
+                // todo: death animation
+            }
         }
     }
 }

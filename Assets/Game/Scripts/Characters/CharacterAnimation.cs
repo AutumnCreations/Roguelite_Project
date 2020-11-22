@@ -27,13 +27,14 @@ namespace Scripts.Characters
             _targetPosition = transform.position;
         }
 
-        public IEnumerator MoveRoutine(WorldTile target)
+        public bool IsIdle()
         {
-            if (target is null)
-            {
-                yield break;
-            }
+            return CurrentCharacterAnimationState == CharacterAnimationState.Idle;
+        }
 
+        public void Move(WorldTile target) => StartCoroutine(MoveRoutine(target));
+        private IEnumerator MoveRoutine(WorldTile target)
+        {
             _targetPosition = target.transform.position + stepOffset;
             animator.SetBool(AnimatorConstants.IsMoving, true);
             CurrentCharacterAnimationState = CharacterAnimationState.Moving;
@@ -53,7 +54,8 @@ namespace Scripts.Characters
             }
         }
 
-        public IEnumerator CastSpellRoutine(Spell activeSpell, WorldTile targetTile)
+        public void CastSpell(Spell activeSpell, WorldTile targetTile) => StartCoroutine(CastSpellRoutine(activeSpell, targetTile));
+        private IEnumerator CastSpellRoutine(Spell activeSpell, WorldTile targetTile)
         {
             CurrentCharacterAnimationState = CharacterAnimationState.Casting;
 
@@ -72,8 +74,11 @@ namespace Scripts.Characters
             CurrentCharacterAnimationState = CharacterAnimationState.Idle;
         }
 
-        public IEnumerator TakeDamageRoutine()
+        public void TakeDamage() => StartCoroutine(TakeDamageRoutine());
+        private IEnumerator TakeDamageRoutine()
         {
+            CurrentCharacterAnimationState = CharacterAnimationState.TakingDamage;
+
             animator.SetTrigger(AnimatorConstants.TakeDamage);
 
             var endOfAnimation = Time.time + 2.3f;
@@ -81,9 +86,11 @@ namespace Scripts.Characters
             {
                 yield return null;
             }
+
+            CurrentCharacterAnimationState = CharacterAnimationState.Idle;
         }
 
-        public void LookAtTarget(Vector3 lookTarget)
+        private void LookAtTarget(Vector3 lookTarget)
         {
             var direction = lookTarget - transform.position;
             //Keep the direction strictly horizontal

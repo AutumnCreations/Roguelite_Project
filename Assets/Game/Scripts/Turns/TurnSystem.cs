@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Scripts.Characters;
 using Scripts.Control;
 using Scripts.Turns.Actions;
 using Scripts.Worlds;
@@ -15,11 +16,17 @@ namespace Scripts.Turns
 
         private bool _isPlanningPhase;
         private List<TurnAction> _currentTurn;
+        private IEnumerable<Character> _characters;
 
         private void Awake()
         {
             _isPlanningPhase = true;
             _currentTurn = new List<TurnAction>();
+        }
+
+        private void Start()
+        {
+            _characters = new[] { _player.Character }.Concat(_enemies.Characters.Select(e => e.Character));
         }
 
         private void FixedUpdate()
@@ -56,16 +63,11 @@ namespace Scripts.Turns
             {
                 action.CastSpell();
             }
-
-            foreach (var action in _currentTurn)
-            {
-                StartCoroutine(action.Animation());
-            }
         }
 
         private void Wait()
         {
-            if (_currentTurn.Any(r => !r.Completed))
+            if (_characters.Any(c => !c.Animation.IsIdle()))
             {
                 return;
             }

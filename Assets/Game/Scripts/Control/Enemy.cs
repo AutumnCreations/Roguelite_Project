@@ -1,5 +1,4 @@
-﻿using Scripts.Characters;
-using Scripts.Turns.Actions;
+﻿using Scripts.Turns.Actions;
 using Scripts.Worlds;
 using UnityEngine;
 
@@ -10,13 +9,6 @@ namespace Scripts.Control
         private static readonly System.Random Random = new System.Random();
 
         [SerializeField] public World World;
-
-        public Character Character { get; private set; }
-
-        private void Awake()
-        {
-            Character = transform.GetComponent<Character>();
-        }
 
         public override TurnAction NextAction()
         {

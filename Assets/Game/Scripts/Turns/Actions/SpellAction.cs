@@ -9,15 +9,15 @@ namespace Scripts.Turns.Actions
     public class SpellAction : TurnAction
     {
         private readonly Character _character;
-        private readonly Spell _activeSpell;
+        private readonly Spell _spell;
         private readonly WorldTile _targetTile;
 
         private Character _target;
 
-        public SpellAction(Character character, Spell activeSpell, WorldTile targetTile)
+        public SpellAction(Character character, Spell spell, WorldTile targetTile)
         {
             _character = character;
-            _activeSpell = activeSpell;
+            _spell = spell;
             _targetTile = targetTile;
         }
 
@@ -31,13 +31,13 @@ namespace Scripts.Turns.Actions
             _target = _targetTile.occupyingObject.GetComponent<Character>();
             if (_target)
             {
-                _target.Stats.Health -= _activeSpell.Damage;
+                _target.TakeDamage(_spell.Damage);
             }
         }
 
         protected override IEnumerator AnimationInternal()
         {
-            var senderAnimation = _character.Animation.CastSpellRoutine(_activeSpell, _targetTile);
+            var senderAnimation = _character.Animation.CastSpellRoutine(_spell, _targetTile);
             var targetAnimation = GetTargetAnimation();
 
             while (true)

@@ -1,4 +1,5 @@
 ﻿using Scripts.UI;
+using Scripts.Worlds;
 using UnityEngine;
 
 namespace Scripts.Characters
@@ -7,6 +8,8 @@ namespace Scripts.Characters
     [RequireComponent(typeof(CharacterStats))]
     public class Character : MonoBehaviour
     {
+        [SerializeField] public WorldTile CurrentTile;
+
         private TooltipPopup _tooltip;
 
         public CharacterAnimation Animation { get; private set; }
@@ -27,6 +30,30 @@ namespace Scripts.Characters
         private void OnMouseExit()
         {
             _tooltip.HideInfo();
+        }
+
+        public void MoveTo(WorldTile tile)
+        {
+            if (tile is null)
+            {
+                return;
+            }
+
+            Stats.Q = tile.Hex.Q;
+            Stats.R = tile.Hex.R;
+            tile.occupyingObject = gameObject;
+
+            if (CurrentTile)
+            {
+                CurrentTile.occupyingObject = null;
+            }
+
+            CurrentTile = tile;
+        }
+
+        public void TakeDamage(int amount)
+        {
+            Stats.Health -= amount;
         }
     }
 }

@@ -142,7 +142,7 @@ namespace Scripts.Worlds
                     }
 
                     tile.occupyingObject = character.gameObject;
-                    character.Stats.lastTile = tile;
+                    character.CurrentTile = tile;
                     character.transform.position = tile.transform.position + stepOffset;
                     character.Stats.Q = q;
                     character.Stats.R = r;

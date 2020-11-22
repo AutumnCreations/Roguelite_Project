@@ -17,21 +17,7 @@ namespace Scripts.Turns.Actions
 
         public override void Move()
         {
-            if (_tile is null)
-            {
-                return;
-            }
-
-            _character.Stats.Q = _tile.Hex.Q;
-            _character.Stats.R = _tile.Hex.R;
-            _tile.occupyingObject = _character.gameObject;
-
-            if (_character.Stats.lastTile)
-            {
-                _character.Stats.lastTile.occupyingObject = null;
-            }
-
-            _character.Stats.lastTile = _tile;
+            _character.MoveTo(_tile);
         }
 
         protected override IEnumerator AnimationInternal()

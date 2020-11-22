@@ -310,9 +310,32 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 4005687642667351100, guid: f243acc291fcea740b6deef555c1d092,
         type: 3}
+      propertyPath: Spells.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005687642667351100, guid: f243acc291fcea740b6deef555c1d092,
+        type: 3}
       propertyPath: spells.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4005687642667351100, guid: f243acc291fcea740b6deef555c1d092,
+        type: 3}
+      propertyPath: Spells.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 044a4a6d1b566234c8e2e9aa0e80ed35,
+        type: 2}
+    - target: {fileID: 4005687642667351100, guid: f243acc291fcea740b6deef555c1d092,
+        type: 3}
+      propertyPath: Spells.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: d047874f8324419468b9fd84af7e8691,
+        type: 2}
+    - target: {fileID: 4005687642667351100, guid: f243acc291fcea740b6deef555c1d092,
+        type: 3}
+      propertyPath: Spells.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 384ee6bd82ac95841b400d0d80351907,
+        type: 2}
     - target: {fileID: 4005687642667351100, guid: f243acc291fcea740b6deef555c1d092,
         type: 3}
       propertyPath: spells.Array.data[0]
@@ -559,7 +582,6 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
-  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &1364025630

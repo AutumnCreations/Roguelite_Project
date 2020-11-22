@@ -11,13 +11,7 @@ namespace Scripts.Characters
         [SerializeField] public int R;
 
         [Header("Combat")]
-        [SerializeField] private float health = 10f;
-        [SerializeField] public List<Spell> spells;
-
-        public float Health
-        {
-            get => health;
-            set => health = value;
-        }
+        [SerializeField] public float Health = 10f;
+        [SerializeField] public List<Spell> Spells;
     }
 }

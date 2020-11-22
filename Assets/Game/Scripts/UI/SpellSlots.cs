@@ -15,7 +15,7 @@ namespace Scripts.UI
         {
             var character = player.GetComponent<Character>();
 
-            foreach (var spell in character.Stats.spells)
+            foreach (var spell in character.Stats.Spells)
             {
                 var spellButton = Instantiate(spellButtonReference, gameObject.transform);
                 spellButton.spell = spell;

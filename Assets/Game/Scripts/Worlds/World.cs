@@ -21,7 +21,6 @@ namespace Scripts.Worlds
         [SerializeField] private EnemyContainer _enemies;
 
         private readonly Dictionary<HexTile, WorldTile> _tiles = new Dictionary<HexTile, WorldTile>();
-        private readonly Dictionary<HexTile, Character> _characters = new Dictionary<HexTile, Character>();
 
         private void Awake()
         {
@@ -77,9 +76,13 @@ namespace Scripts.Worlds
 
         private Character GetCharacterAt(HexTile hexTile)
         {
-            return _characters.TryGetValue(hexTile, out var value)
-                ? value
-                : null;
+            var worldTile = GetTileAt(hexTile);
+            if (worldTile == null || worldTile.occupyingObject == null)
+            {
+                return null;
+            }
+
+            return worldTile.occupyingObject.GetComponent<Character>();
         }
 
         public IEnumerable<Character> GetCharactersWithinRange(int q, int r, int range)

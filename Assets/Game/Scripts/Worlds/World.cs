@@ -140,11 +140,13 @@ namespace Scripts.Worlds
             {
                 var index = random.Next(worldTiles.Count);
                 var tile = worldTiles[index];
+                character.Stats.Q = tile.Hex.Q;
+                character.Stats.R = tile.Hex.R;
+
                 character.CurrentTile = tile;
                 character.transform.position = tile.transform.position + stepOffset;
-                worldTiles.RemoveAt(index);
 
-                print(character + " " + character.CurrentTile);
+                worldTiles.RemoveAt(index);
             }
 
         }

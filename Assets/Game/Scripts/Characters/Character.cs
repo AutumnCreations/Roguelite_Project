@@ -2,6 +2,8 @@
 using Scripts.UI;
 using Scripts.Worlds;
 using UnityEngine;
+using Pathfinding;
+using System;
 
 namespace Scripts.Characters
 {
@@ -11,16 +13,20 @@ namespace Scripts.Characters
     {
         [SerializeField] public WorldTile CurrentTile;
 
-        private TooltipPopup _tooltip;
-
         public CharacterAnimation Animation { get; private set; }
         public CharacterStats Stats { get; private set; }
+
+        private TooltipPopup _tooltip;
+        private Seeker seeker;
+        private WorldTile targetTile;
+
 
         private void Awake()
         {
             Animation = transform.GetComponent<CharacterAnimation>();
             Stats = transform.GetComponent<CharacterStats>();
             _tooltip = FindObjectOfType<TooltipPopup>();
+            seeker = GetComponent<Seeker>();
         }
 
         private void OnMouseOver()
@@ -33,13 +39,20 @@ namespace Scripts.Characters
             _tooltip.HideInfo();
         }
 
-        public void MoveTo(WorldTile tile)
+        public void StartMove(WorldTile tile)
         {
             if (tile is null || tile.occupyingObject)
             {
                 return;
             }
 
+            targetTile = tile;
+
+            seeker.StartPath(transform.position, tile.transform.position, OnPathComplete);
+        }
+
+        public void FinishMove(WorldTile tile)
+        {
             Stats.Q = tile.Hex.Q;
             Stats.R = tile.Hex.R;
             tile.occupyingObject = gameObject;
@@ -52,6 +65,16 @@ namespace Scripts.Characters
             CurrentTile = tile;
 
             Animation.Move(tile);
+        }
+
+        private void OnPathComplete(Path p)
+        {
+            Debug.Log("Yay, we got a path back. Did it have an error? " + p.error);
+
+            if (!p.error)
+            {
+                FinishMove(targetTile);
+            }
         }
 
         public void CastSpell(Spell spell, WorldTile targetTile)

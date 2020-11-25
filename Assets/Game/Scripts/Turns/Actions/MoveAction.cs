@@ -16,7 +16,7 @@ namespace Scripts.Turns.Actions
 
         public override void Move()
         {
-            _character.MoveTo(_tile);
+            _character.StartMove(_tile);
         }
     }
 }

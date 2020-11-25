@@ -81,6 +81,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 7414930409192019971, guid: 05466c750c9786c42a4d9d8fceac8c5c,
+        type: 3}
+      propertyPath: Spells.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414930409192019971, guid: 05466c750c9786c42a4d9d8fceac8c5c,
+        type: 3}
+      propertyPath: Spells.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 384ee6bd82ac95841b400d0d80351907,
+        type: 2}
+    - target: {fileID: 7414930409192019971, guid: 05466c750c9786c42a4d9d8fceac8c5c,
+        type: 3}
+      propertyPath: Spells.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: d047874f8324419468b9fd84af7e8691,
+        type: 2}
+    - target: {fileID: 7414930409192019971, guid: 05466c750c9786c42a4d9d8fceac8c5c,
+        type: 3}
+      propertyPath: Spells.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 044a4a6d1b566234c8e2e9aa0e80ed35,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05466c750c9786c42a4d9d8fceac8c5c, type: 3}
 --- !u!1 &5528727475798358280 stripped

@@ -129,29 +129,24 @@ namespace Scripts.Worlds
         {
             var random = new System.Random();
             var characters = new[] { _player }.Concat(_enemies.Characters.Select(e => e.Character));
+            List<WorldTile> worldTiles = new List<WorldTile>();
+
+            foreach (var worldTile in _tiles.Values)
+            {
+                worldTiles.Add(worldTile);
+            }
+
             foreach (var character in characters)
             {
-                var q = character.Stats.Q;
-                var r = character.Stats.R;
+                var index = random.Next(worldTiles.Count);
+                var tile = worldTiles[index];
+                character.CurrentTile = tile;
+                character.transform.position = tile.transform.position + stepOffset;
+                worldTiles.RemoveAt(index);
 
-                while (true)
-                {
-                    var tile = GetTileAt(q, r);
-                    if (tile is null)
-                    {
-                        q = random.Next(_radius * 2) - _radius - 1;
-                        r = random.Next(_radius * 2) - _radius - 1;
-                        continue;
-                    }
-
-                    tile.occupyingObject = character.gameObject;
-                    character.CurrentTile = tile;
-                    character.transform.position = tile.transform.position + stepOffset;
-                    character.Stats.Q = q;
-                    character.Stats.R = r;
-                    break;
-                }
+                print(character + " " + character.CurrentTile);
             }
+
         }
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6880641555116006721}
   - component: {fileID: 2911055819570000972}
   - component: {fileID: 1590322884375441578}
-  m_Layer: 9
+  m_Layer: 5
   m_Name: Y Coordinate
   m_TagString: Tile
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 2499264373027755284}
   - component: {fileID: 4863399749109384340}
   - component: {fileID: 3876157165664547007}
-  m_Layer: 9
+  m_Layer: 5
   m_Name: Z Coordinate
   m_TagString: Tile
   m_Icon: {fileID: 0}
@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 1214758457731951031}
   - component: {fileID: 4841726204838043611}
   - component: {fileID: 7352032247656868102}
-  m_Layer: 9
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Tile
   m_Icon: {fileID: 0}
@@ -352,7 +352,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
 --- !u!114 &7352032247656868102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,6 +420,7 @@ MonoBehaviour:
   xCoordinate: {fileID: 1263135124645495341}
   yCoordinate: {fileID: 1590322884375441578}
   zCoordinate: {fileID: 3876157165664547007}
+  occupyingObject: {fileID: 0}
 --- !u!1 &7759364318090683697
 GameObject:
   m_ObjectHideFlags: 0
@@ -1121,7 +1121,7 @@ GameObject:
   - component: {fileID: 522323515364880182}
   - component: {fileID: 5550677321244050900}
   - component: {fileID: 1263135124645495341}
-  m_Layer: 9
+  m_Layer: 5
   m_Name: X Coordinate
   m_TagString: Tile
   m_Icon: {fileID: 0}

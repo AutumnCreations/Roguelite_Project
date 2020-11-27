@@ -2,7 +2,7 @@
 
 namespace Scripts.Items
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(fileName = "New Spell Type", menuName = "Items/Spell Type")]
     public class SpellType : ScriptableObject
     {
         [SerializeField] private new string name;

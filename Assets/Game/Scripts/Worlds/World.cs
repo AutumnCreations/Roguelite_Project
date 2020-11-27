@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Scripts.Characters;
 using Scripts.Extensions;
@@ -22,6 +23,10 @@ namespace Scripts.Worlds
 
         private readonly Dictionary<HexTile, WorldTile> _tiles = new Dictionary<HexTile, WorldTile>();
 
+        private List<string> characterNames = new List<string> {"Tandy", "Quinn", "Jules", "Lane", "Jody", "Jessie", "Alex", "Brook", "Sidney", "Max", "Blake", "Rowan", "Christos",
+            "Ross", "Harvey", "Watson", "Kian", "Andrew", "Fred", "Trent", "Archer", "Owen", "Clark", "Michelangelo"};
+
+
         private void Awake()
         {
             GenerateMap();
@@ -29,6 +34,7 @@ namespace Scripts.Worlds
 
         private void Start()
         {
+            AstarPath.active.Scan();
             PlaceCharacters();
         }
 
@@ -146,9 +152,22 @@ namespace Scripts.Worlds
                 character.CurrentTile = tile;
                 character.transform.position = tile.transform.position + stepOffset;
 
+                character.Stats.characterName = GetRandomName();
+
                 worldTiles.RemoveAt(index);
             }
 
+        }
+
+        private string GetRandomName()
+        {
+            var random = new System.Random();
+            var index = random.Next(characterNames.Count);
+            var characterName = characterNames[index];
+            characterNames.RemoveAt(index);
+
+            return characterName;
+            
         }
     }
 }

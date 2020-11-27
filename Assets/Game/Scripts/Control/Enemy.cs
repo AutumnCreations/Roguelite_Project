@@ -11,7 +11,13 @@ namespace Scripts.Control
     {
         private static readonly System.Random Random = new System.Random();
 
-        [SerializeField] public World World;
+        [HideInInspector]
+        public World World;
+
+        private void Start()
+        {
+            World = FindObjectOfType<World>();
+        }
 
         public override TurnAction NextAction()
         {

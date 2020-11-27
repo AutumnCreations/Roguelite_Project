@@ -65,12 +65,13 @@ namespace Scripts.UI
         }
 
         //Change this to Enemy information, such as enemy name, type, etc., after Proof of Concept
-        public void DisplayCharacterInfo(CharacterStats character)
+        public void DisplayCharacterInfo(CharacterStats stats)
         {
             StringBuilder builder = new StringBuilder();
 
-            builder.Append("<size=35><color=#8f0d2b>").Append(character.name).Append("</color></size>").AppendLine();
-            builder.Append("<color=#8f0d2b>").Append(character.Health).Append("</color> Health").AppendLine();
+            builder.Append("<size=35><color=#8f0d2b>").Append(stats.characterName).Append("</color></size>").AppendLine();
+            builder.Append("<size=35><color=#8f0d2b>").Append(stats.name).Append("</color></size>").AppendLine();
+            builder.Append("<color=#8f0d2b>").Append(stats.Health).Append("</color> Health").AppendLine();
             infoText.text = builder.ToString();
 
             popupCanvasObject.SetActive(true);

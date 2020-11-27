@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Scripts.Items
 {
-    [CreateAssetMenu(fileName = "New Spell", menuName = "Spells")]
+    [CreateAssetMenu(fileName = "New Spell", menuName = "Items/Spell")]
     public class Spell : Item
     {
         [SerializeField] private SpellType spellType;

@@ -3,7 +3,6 @@ using Scripts.UI;
 using Scripts.Worlds;
 using UnityEngine;
 using Pathfinding;
-using System;
 
 namespace Scripts.Characters
 {
@@ -17,16 +16,13 @@ namespace Scripts.Characters
         public CharacterStats Stats { get; private set; }
 
         private TooltipPopup _tooltip;
-        private Seeker seeker;
         private WorldTile targetTile;
-
 
         private void Awake()
         {
             Animation = transform.GetComponent<CharacterAnimation>();
             Stats = transform.GetComponent<CharacterStats>();
             _tooltip = FindObjectOfType<TooltipPopup>();
-            seeker = GetComponent<Seeker>();
         }
 
         private void OnMouseOver()
@@ -47,12 +43,6 @@ namespace Scripts.Characters
             }
 
             targetTile = tile;
-
-            seeker.StartPath(transform.position, tile.transform.position, OnPathComplete);
-        }
-
-        public void FinishMove(WorldTile tile)
-        {
             Stats.Q = tile.Hex.Q;
             Stats.R = tile.Hex.R;
             tile.occupyingObject = gameObject;
@@ -65,14 +55,6 @@ namespace Scripts.Characters
             CurrentTile = tile;
 
             Animation.Move(tile);
-        }
-
-        private void OnPathComplete(Path p)
-        {
-            if (!p.error)
-            {
-                FinishMove(targetTile);
-            }
         }
 
         public void CastSpell(Spell spell, WorldTile targetTile)
